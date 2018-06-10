@@ -1,0 +1,28 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    dichvunhacua_user.registration_completed:
+        class: AppBundle\EventListener\RegisterCompletedListener
+        arguments: [ '@doctrine.orm.entity_manager' ]
+        tags:
+          - { name: kernel.event_subscriber, priority:253 }
+    app.upload_listener:
+        class: AppBundle\EventListener\UploadListener
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+    dichvunhacua.locale_domain_switcher:
+        class:      AppBundle\EventListener\SwitchLocaleEventListener
+        arguments:  ['@request_stack', '@session', '%locale%']
+        tags:
+            #set service highest for priority to change database base on tenant
+            - { name: kernel.event_listener, priority:254, event: kernel.request, method: onKernelRequest }
+    dich_vu_nha_cua_lead.handler:
+        class: DichVuNhaCua\ProjectBundle\Handler\LeadHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@translator'
+            - '@service_container'

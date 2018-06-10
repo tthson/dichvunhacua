@@ -1,0 +1,5 @@
+services:
+#    dich_vu_nha_cua_project.example:
+#        class: DichVuNhaCua\ProjectBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+

@@ -1,0 +1,79 @@
+{% extends "@App/base.html.twig" %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">Home Service Provider</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="{{ path('home-service-provider_index') }}">Home Service Provider</a></li>
+                <li class="active">{{ business.name }}</li>
+            </ol>
+        </div>
+    </div>
+    <section id="blog-area" class="blog-with-sidebar-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="blog-post">
+                        <!--Start single blog post-->
+                        <div class="single-blog-post">
+                            <div class="img-holder">
+                                <div class="date_more row">
+                                    <!--div class="overlay-style-two"> 9<br />
+                                        jan </div-->
+                                    <div class="col-md-3">
+                                        {% if business.logo is not empty %}
+                                            <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}" width="200"/>
+                                        {% else %}
+                                            <div class="samples-logo">{{ business.name|first|upper }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="text-holder">
+                                            <h3 class="blog-title"><a href="{{ path('home-service-provider_edit', { 'id': business.id }) }}">{{ business.name }}</a></h3>
+                                            <div class="meta-info clearfix">
+                                                <ul class="post-info">
+                                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i><a href="{{ path('home-service-provider_matching_by_location',{'locationSlug':business.city.slug,'locationId':business.city.id}) }}">{{ business.city.name }}</a></li>
+                                                    <li><i class="fa fa-tags" aria-hidden="true"></i>
+                                                        {% for category in business.categories %}
+                                                            <a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':category.slug,'categoryParentId':category.parentId,'categoryId':category.id}) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+                                                        {% endfor %}
+                                                    </li>
+                                                    <li><i class="fa fa-comment-o" aria-hidden="true"></i> <a href="#">5 Comments</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                    <div class="media">
+                                        <h3>About {{ business.name }}</h3>
+                                        <div class="media-body">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>  <a href="{{ path('home-service-provider_matching_by_location',{'locationSlug':business.city.slug,'locationId':business.city.id}) }}">{{ business.city.name }}</a>
+                                            <i class="fa fa-tags" aria-hidden="true"></i>
+                                            {% for category in business.categories %}
+                                                <a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':category.slug,'categoryParentId':category.parentId,'categoryId':category.id}) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+                                            {% endfor %}<br/>
+                                            {% if business.size is not empty and business.size > 0 %}
+                                            <i class="fa fa-users" aria-hidden="true"></i> {{ business.size }} employees
+                                            {% endif %}
+                                            {% if business.contactPerson is not empty %}
+                                                <i class="fa fa-user" aria-hidden="true"></i> Contact Person: {{ business.contactPerson }}
+                                            {% endif %}
+                                            <p>
+                                                {{ business.about | striptags | raw }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

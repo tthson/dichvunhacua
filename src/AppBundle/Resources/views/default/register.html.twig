@@ -1,0 +1,29 @@
+{% extends "@App/base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/app/css/signin.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <!--Page Title Section Satrt-->
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">{{ 'layout.register'|trans }}</div>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">{{ 'layout.register'|trans }}</li>
+            </ol>
+        </div>
+    </div>
+    <!--Page Title Section End-->
+    <div id="wrapper">
+        <div id="container">
+            {{ include("@App/default/register_content.html.twig") }}
+        </div>
+    </div>
+{% endblock body %}
+

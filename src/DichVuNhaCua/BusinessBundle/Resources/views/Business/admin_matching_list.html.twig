@@ -1,0 +1,366 @@
+{% extends "@EasyAdmin/default/layout.html.twig" %}
+{% block body_id 'easyadmin-matching-list-business' %}
+{% block body_class 'list list-business' %}
+{% block content_header %}
+    <div class="row">
+        <div class="col-sm-12">
+            {% block content_title_wrapper %}
+                <h1 class="title">Matching Business List</h1>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock content_header %}
+
+{% block main %}
+    <section class="content">
+        <div class="form-horizontal col-sm-6" style="">
+            <div class="form-group field-integer ">
+                <label class="col-sm-3 control-label">
+                    Project Category
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.category.name }}</div>
+
+                </div>
+            </div>
+            <div class="form-group field-string ">
+                <label class="col-sm-3 control-label">
+                    Address
+                </label>
+                <div class="col-sm-7">
+                    <div>{{ project.address }}</div>
+                </div>
+            </div>
+            <div class="form-group field-integer ">
+                <label class="col-sm-3 control-label">
+                    City
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.city.name }}</div>
+                </div>
+            </div>
+            <div class="form-group field-string ">
+                <label class="col-sm-3 control-label">
+                    Consumer's Name
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.firstName ~ ' ' ~ project.lastName }}</div>
+                </div>
+            </div>
+            <div class="form-group field-string ">
+                <label class="col-sm-3 control-label">
+                    Phone
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.phone }}</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-horizontal col-sm-6" >
+            <div class="form-group field-string ">
+                <label class="col-sm-3 control-label">
+                    Email
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.email }}</div>
+
+                </div>
+            </div>
+            <div class="form-group field-text ">
+                <label class="col-sm-3 control-label">
+                    Detail
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.detail | raw }}</div>
+
+                </div>
+            </div>
+            <div class="form-group field-integer ">
+                <label class="col-sm-3 control-label">
+                    Project Status
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.projectStatus.name }}</div>
+
+                </div>
+            </div>
+            <div class="form-group field-integer ">
+                <label class="col-sm-3 control-label">
+                    Time to be completed
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.projectPeriod.name }}</div>
+
+                </div>
+            </div>
+            <div class="form-group field-integer ">
+                <label class="col-sm-3 control-label">
+                    Location type
+                </label>
+                <div class="col-sm-7">
+                    <div class="form-control">{{ project.projectLocationType.name }}</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive col-sm-12" style="clear: both;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th data-property-name="id" class="integer ">
+                        ID
+                    </th>
+
+                    <th data-property-name="name" class="string">
+                        Name
+                    </th>
+
+                    <th data-property-name="address" class="string">
+                        Address
+                    </th>
+
+                    <th data-property-name="phone" class="string">
+                        Phone
+                    </th>
+
+                    <th data-property-name="logo" class="  image ">
+                        Logo
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for business in businesses %}
+                    <tr id="proposal-{{ project.id }}-{{ business.id }}" data-project-id="{{ project.id }}"
+                        data-business-id="{{ business.id }}"
+                        data-proposal-id="{{ business.proposalId }}"
+                        data-estimated-time="{{ business.estimatedTime }}"
+                        data-estimated-cost="{{ business.estimatedCost }}"
+                        data-description="{{ business.description }}">
+                        <td data-label="ID" class="sorted integer "> {{ business.id }} </td>
+                        <td data-label="Name" class=" string ">{{ business.name }}</td>
+                        <td data-label="Address" class=" string ">{{ business.address }}</td>
+                        <td data-label="Phone" class=" string ">{{ business.phone }}</td>
+                        <td data-label="Logo" class=" image ">
+                            <a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-4ebdfc0deec0513e5c6a1d98a6f2552e" data-featherlight-close-on-click="anywhere">
+                                {% if business.logo is not empty %}
+                                    <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}" width="200"/>
+                                {% else %}
+                                    <div class="samples-logo">{{ business.name|first|upper }}</div>
+                                {% endif %}
+                            </a>
+
+                            <div id="easyadmin-lightbox-4ebdfc0deec0513e5c6a1d98a6f2552e" class="easyadmin-lightbox">
+                                {% if business.logo is not empty %}
+                                    <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}"/>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td data-label="Actions" class="actions">
+                            <a style="{% if business.proposalId is not empty %}display:none{% endif %}" class="text-primary action-create-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-create-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Create Proposal</a>
+                            <a style="{% if business.proposalId is empty %}display:none{% endif %}" class="text-primary action-edit-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-edit-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Edit Proposal</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div id="create-proposal-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <form id="create-proposal-form" action="{{ path('admin_create_new_proposal') }}" method="POST">
+                    <input type="hidden" id="proposal-project-id" name="proposal-project-id" value="{{ project.id }}"/>
+                    <input type="hidden" id="proposal-business-id" name="proposal-business-id" value=""/>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Proposal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Proposal Information</p>
+                        <div class="form-group">
+                            <label for="proposal-estimated-time">Estimated Time</label>
+                            <input type="text" class="form-control" id="proposal-estimated-time" name="proposal-estimated-time" placeholder="Estimated Time">
+                        </div>
+                        <div class="form-group">
+                            <label for="proposal-estimated-cost">Estimated Cost</label>
+                            <input type="text" class="form-control" id="proposal-estimated-cost-formated" name="proposal-estimated-cost-formated" placeholder="Estimated Cost">
+                            <input type="hidden" id="proposal-estimated-cost" name="proposal-estimated-cost">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Description</label>
+                            <input type="text" class="form-control" id="proposal-description" name="proposal-description" placeholder="Description">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="modal-create-proposal-button" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        {% block paginator %}
+            <nav aria-label="Page navigation" class="text-center">
+                {{ knp_pagination_render(businesses) }}
+            </nav>
+        {% endblock paginator %}
+    </section>
+    {% block body_javascript %}
+        {{ parent() }}
+        <script src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/tinymce/tinymce.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/jquery/jquery.validate.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/jquery/jquery.form.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/jquery/autoNumeric.js') }}"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#main').find('table .toggle input[type="checkbox"]').change(function() {
+                    var toggle = $(this);
+                    var newValue = toggle.prop('checked');
+                    var oldValue = !newValue;
+
+                    var columnIndex = $(this).closest('td').index() + 1;
+                    var propertyName = $('table th.toggle:nth-child(' + columnIndex + ')').data('property-name');
+
+                    var toggleUrl = "{{ path('easyadmin', { action: 'edit', entity: 'Business', view: 'list' })|raw }}"
+                        + "&id=" + $(this).closest('tr').data('id')
+                        + "&property=" + propertyName
+                        + "&newValue=" + newValue.toString();
+
+                    var toggleRequest = $.ajax({ type: "GET", url: toggleUrl, data: {} });
+
+                    toggleRequest.done(function(result) {});
+
+                    toggleRequest.fail(function() {
+                        // in case of error, restore the original value and disable the toggle
+                        toggle.bootstrapToggle(oldValue == true ? 'on' : 'off');
+                        toggle.bootstrapToggle('disable');
+                    });
+                });
+
+                $('.action-create-proposal').on('click', function(e) {
+                    e.preventDefault();
+                    var projectId = $(this).parents('tr').first().data('project-id');
+                    var businessId = $(this).parents('tr').first().data('business-id');
+                    var createProposalForm = $('#create-proposal-form');
+                    $('#proposal-estimated-cost-formated').autoNumeric('init', {aSign:' VND', pSign:'s', aPad: false });
+                    createProposalForm.clearForm();
+                    createProposalForm.find('input#proposal-project-id').val(projectId);
+                    createProposalForm.find('input#proposal-business-id').val(businessId);
+                    $('#proposal-estimated-cost-formated').autoNumeric('set', 0);
+
+                    $('#create-proposal-modal').modal({ backdrop: true, keyboard: true })
+                        .off('click', '#modal-create-proposal-button')
+                        .on('click', '#modal-create-proposal-button', function () {
+                            var createProposalForm = $('#create-proposal-form');
+                            createProposalForm.find('input#proposal-estimated-cost').val($('#proposal-estimated-cost-formated').autoNumeric('get'));
+                            createProposalForm.attr('action', "{{ path('admin_create_new_proposal') }}");
+                            if ( $("#create-proposal-form").valid()) {
+                                createProposalForm.trigger('submit');
+                            }
+                        });
+                });
+
+                $('.action-edit-proposal').on('click', function(e) {
+                    e.preventDefault();
+                    var projectId = $(this).parents('tr').first().data('project-id');
+                    var businessId = $(this).parents('tr').first().data('business-id');
+                    var proposalId = $(this).parents('tr').first().data('proposal-id');
+                    var estimatedTime = $(this).parents('tr').first().data('estimated-time');
+                    var estimatedCost = $(this).parents('tr').first().data('estimated-cost');
+                    var description = $(this).parents('tr').first().data('description');
+                    var createProposalForm = $('#create-proposal-form');
+                    $('#proposal-estimated-cost-formated').autoNumeric('init', {aSign:' VND', pSign:'s', aPad: false });
+                    createProposalForm.find('input#proposal-project-id').val(projectId);
+                    createProposalForm.find('input#proposal-business-id').val(businessId);
+                    createProposalForm.find('input#proposal-estimated-time').val(estimatedTime);
+                    createProposalForm.find('input#proposal-estimated-cost').val(estimatedCost);
+                    $('#proposal-estimated-cost-formated').autoNumeric('set', estimatedCost);
+                    createProposalForm.find('input#proposal-description').val(description);
+
+                    $('#create-proposal-modal').modal({ backdrop: true, keyboard: true })
+                        .off('click', '#modal-create-proposal-button')
+                        .on('click', '#modal-create-proposal-button', function () {
+                            var createProposalForm = $('#create-proposal-form');
+                            createProposalForm.find('input#proposal-estimated-cost').val($('#proposal-estimated-cost-formated').autoNumeric('get'));
+                            createProposalForm.attr('action', "{{ path('admin_proposal_edit', {'id':'__id__'}) }}");
+                            createProposalForm.attr('action', createProposalForm.attr('action').replace('__id__', proposalId));
+                            if ( $("#create-proposal-form").valid()) {
+                                createProposalForm.trigger('submit');
+                            }
+                        });
+                });
+            });
+            $(document).ready(function() {
+                //$('#proposal-estimated-cost').autoNumeric('init');
+                $("#create-proposal-form").validate(
+                    {
+                        rules: {
+                            'proposal-estimated-time': {
+                                required: true,
+                                min: 1,
+                                number: true
+                            },
+                            'proposal-estimated-cost': {
+                                required: true,
+                                min: 1,
+                                number: true
+                            }
+                        },
+                        messages: {
+                            'proposal-estimated-time': {
+                                required: "Estimated Time should not be blank.",
+                                min: "Estimated Time should be greater than 0",
+                                number: "Estimated Time should be a number."
+                            },
+                            'proposal-estimated-cost': {
+                                required: "Estimated Cost should not be blank.",
+                                min: "Estimated Cost should be greater than 0",
+                                number: "Estimated Cost should be a number."
+                            }
+                        }
+                    }
+                );
+                var options = {
+                    //target:        '#output1',   // target element(s) to be updated with server response
+                    beforeSubmit:  showRequest,  // pre-submit callback
+                    success:       showResponse,  // post-submit callback
+                    type: 'post',
+                    dataType: 'json',
+                    resetForm: true
+                };
+                $('#create-proposal-form').ajaxForm(options);
+            });
+
+            // pre-submit callback
+            function showRequest(formData, jqForm, options) {
+                if ( $("#create-proposal-form").valid()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            // post-submit callback
+            function showResponse(responseText, statusText, xhr, $form)  {
+                $('tr#proposal-'+responseText.projectId+'-'+responseText.businessId)
+                    .data('proposal-id',responseText.id)
+                    .data('estimated-time',responseText.estimatedTime)
+                    .data('estimated-cost',responseText.estimatedCost)
+                    .data('description',responseText.description);
+                $('#action-create-'+responseText.projectId+'-'+responseText.businessId).css('display','none');
+                $('#action-edit-'+responseText.projectId+'-'+responseText.businessId).css('display','block');
+                $("#create-proposal-modal .close").click()
+            }
+        </script>
+    {% endblock %}
+
+{% endblock main %}

@@ -1,0 +1,124 @@
+{% extends "@App/base.html.twig" %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">{{ 'layout.project'|trans }}</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">{{ 'layout.home'|trans }}</a></li>
+                <li class="active">{{ 'layout.project'|trans }}</li>
+            </ol>
+        </div>
+    </div>
+    <section id="blog-area" class="blog-with-sidebar-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <div class="blog-post">
+                        <!--Start single blog post-->
+                        {% for project in projects %}
+                            <div class="single-blog-post">
+                                <div class="img-holder">
+                                    <!--img src="images/blog/blog1.png" alt="blog1" /-->
+                                    <div class="date_more">
+                                        <!--div class="overlay-style-two"> 9<br />
+                                            jan </div-->
+                                        <div class="text-holder">
+                                            <h3 class="blog-title"><a href="{{ path('home-service-provider_matching_by_project', { 'projectId': project.id }) }}">{{ project.category.name }}</a></h3>
+                                            <div class="meta-info clearfix">
+                                                <ul class="post-info">
+                                                    <li><i class="fa fa-user" aria-hidden="true"></i>Created by <a title="{{ project.createdBy.userName }}" href="javascript:void(0);">{{ project.createdBy.firstName }}</a></li>
+                                                    <li><i class="fa fa-tags" aria-hidden="true"></i>
+                                                        <a href="javascript:void(0);">{{ project.category.name }}</a>
+                                                    </li>
+                                                    <li><i class="fa fa-calendar-o" aria-hidden="true"></i> <a href="#">{{ project.projectStatus.name }}</a></li>
+                                                    <li><i class="fa fa-calendar" aria-hidden="true"></i><a href="#">{{ project.projectPeriod.name }}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text">
+                                        <p>{{ project.detail | striptags | truncate(300, true, '...') | raw }}</p>
+                                        <a class="readmore" href="{{ path('home-service-provider_matching_by_project', { 'projectId': project.id }) }}">View Matching Pros</a>
+                                        <a class="readmore" href="#">Close</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <nav aria-label="Page navigation" class="text-center">
+                            {{ knp_pagination_render(projects) }}
+                        </nav>
+                    </div>
+                </div>
+                <!--Start sidebar Wrapper-->
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="sidebar-wrapper">
+                        <div class="single-sidebar">
+                            <form class="search-form" action="#">
+                                <input placeholder="Search..." type="text">
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
+                        <div class="single-sidebar">
+                            <div class="sec-title">
+                                <h3>Industries</h3>
+                            </div>
+                            <ul class="categories clearfix">
+                                {% for key,val in industries %}
+                                    <li><a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':val.slug,'categoryParentId':val.parentId,'categoryId':val.id}) }}">{{ val.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="single-sidebar">
+                            <div class="sec-title">
+                                <h3>Latest Post</h3>
+                            </div>
+                            <ul class="latest-post">
+                                <li>
+                                    <div class="img-holder"> <img src="images/blog/post1.png" alt="post1" /> </div>
+                                    <div class="title-holder"> <a href="#">
+                                            <h5 class="post-title"> Ground on the shore of this on uncharted desert </h5>
+                                        </a>
+                                        <h6 class="post-date"> 5 mins ago </h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img-holder"> <img src="images/blog/post2.png" alt="post2" /> </div>
+                                    <div class="title-holder"> <a href="#">
+                                            <h5 class="post-title"> Five passengers set sail that ay hour tour a tour. </h5>
+                                        </a>
+                                        <h6 class="post-date"> 1 week ago </h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img-holder"> <img src="images/blog/post3.png" alt="post3" /> </div>
+                                    <div class="title-holder"> <a href="#">
+                                            <h5 class="post-title"> Five passengers set sail that ay three hour tour. </h5>
+                                        </a>
+                                        <h6 class="post-date"> 2 days ago </h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="single-sidebar popular-tag">
+                            <div class="sec-title">
+                                <h3>Tags</h3>
+                            </div>
+                            <ul class="popular-tag">
+                                <li><a href="#">Cleaning</a></li>
+                                <li><a href="#">Electrical</a></li>
+                                <li><a href="#">Appliances</a></li>
+                                <li><a href="#">Plumbing</a></li>
+                                <li><a href="#">Carpentry</a></li>
+                                <li><a href="#">Vehicle Care</a></li>
+                                <li><a href="#">Pest Control</a></li>
+                                <li><a href="#">Paintin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--End Sidebar Wrapper-->
+            </div>
+        </div>
+    </section>
+{% endblock %}

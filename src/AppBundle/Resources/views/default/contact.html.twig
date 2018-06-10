@@ -1,0 +1,67 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+<div id="wrapper" class="inner_page about_us"><!--Wrapper Start-->
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">CONTACT US</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li class="active">Contact Us</li>
+            </ol>
+        </div>
+    </div>
+    <!--page_title Section End-->
+
+    <section id="Contact_form">
+        <div class="contacts_mape">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.249206972686!2d106.67893705020659!3d10.792215561815809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d492df6997%3A0xcdfa8eda5d3b879f!2sThe+Prince+Residence-Novaland!5e0!3m2!1sen!2s!4v1513592206050" width="1600" height="490" allowfullscreen></iframe>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="booking_form">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <form method="post">
+                                    <h2>Contact Form</h2>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control" id="name" name="name" placeholder="Full Name" type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control" id="Email" name="Email" placeholder="Email" type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control" id="Subject" name="Subject" placeholder="Subject*" type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control" id="Phone_number" name="Phone_number" placeholder="Phone Number" type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="input-group">
+                                            <textarea class="form-control" rows="6" placeholder="Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <button class="btn btn-primary btn-skin" name="submit" type="submit"> Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="about_info">
+                        <h2>Contact info</h2>
+                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> Dich Vu Nha Cua</p>
+                        <p><i class="fa fa-envelope" aria-hidden="true"></i> info@dichvunhacua.com</p>
+                        <p><i class="fa fa-phone" aria-hidden="true"></i> +84903012825</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Contact Form End-->
+</div>
+    <!--page content Section End-->
+{% endblock %}

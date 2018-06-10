@@ -1,0 +1,201 @@
+{% extends "@App/base.html.twig" %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">{{ 'layout.project'|trans }}</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">{{ 'layout.home'|trans }}</a></li>
+                <li><a href="{{ path('home_service_project_index') }}">{{ 'layout.project'|trans }}</a></li>
+                <li class="active">{{ project.name }}</li>
+            </ol>
+        </div>
+    </div>
+    <section id="contact_information">
+        <div class="container">
+            <div class="row">
+                <!--Left Form Part-->
+                <div class="col-md-8 col-sm-8 col-xs-12">
+
+                    <!--Contact Information-->
+                    <div class="contact_information_left ">
+
+                        <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+                        <div class="booking_form">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <form action="{{ path('project_edit',{'id':project.id}) }}" method="post">
+                                        <h2>Contact Information</h2>
+                                        <p>This information will be used to contact you about your service</p>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control" id="firstName" name="firstName" value="{{ project.firstName }}" placeholder="First Name" type="text"/>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 padding-r">
+                                            <input class="form-control" id="lastName" name="lastName" value="{{ project.lastName }}" placeholder="Last Name" type="text"/>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control" id="email" name="email" value="{{ project.email }}" placeholder="Email*" type="text"/>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12 padding-r">
+                                            <input class="form-control" id="phone" name="phone" value="{{ project.phone }}" placeholder="Phone Number*" type="text"/>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <hr />
+                                        <!--Service Address-->
+                                        <h2>Service Address</h2>
+                                        <p>What is your project address?</p>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+                                            <label>Address</label>
+                                            <input class="form-control" id="address" name="address" value="{{ project.address }}" placeholder="Address*" type="text"/>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label>City</label>
+                                            <select class="form-control project-city" name="cityId" placeholder="Please select city">
+                                                {% for key,val in locations %}
+                                                    <option value="{{ val.id }}" {{  project.cityId == '' and key == 0 ? ' selected ' :(val.id == project.cityId ? ' selected ' : '') }}>{{ val.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <hr />
+                                        <!--Choose Service-->
+                                        <h2>Home Service Project Information</h2>
+                                        <p>Summary about your home service project.</p>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="input-group">
+                                                <label>Project Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Project Name" value="{{ project.name }}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="input-group">
+                                                <label>Project Industry</label>
+                                                <select class="form-control project-status" name="categoryId" id="categoryId" placeholder="Select industry">
+                                                    <option value="">Select industry</option>
+                                                    {% for key,val in industries %}
+                                                        <option value="{{ val.id }}" {{  val.id == project.categoryId ? ' selected ' : '' }}>{{ val.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label>Project Status</label>
+                                            <select class="form-control project-status" name="status" placeholder="Please select project status">
+                                                {% for key,val in projectStatuses %}
+                                                    <option value="{{ val.id }}" {{  val.id == project.status ? ' selected ' : '' }}>{{ val.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label>Time to be completed</label>
+                                            <select class="form-control project-status" name="timeToBeCompleted" placeholder="Please select time to be completed">
+                                                {% for key,val in projectPeriods %}
+                                                    <option value="{{ val.id }}" {{  val.id == project.timeToBeCompleted ? ' selected ' : '' }}>{{ val.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label>Location Type</label>
+                                            <select class="form-control project-status" name="locationType" placeholder="Please select location type">
+                                                {% for key,val in locationTypes %}
+                                                    <option value="{{ val.id }}" {{  val.id == project.projectLocationType.id ? ' selected ' : '' }}>{{ val.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <hr />
+                                        <!--Select Extras Services-->
+                                        <h2>Extras Information</h2>
+                                        <p>Any project details you would like the pro to know?</p>
+                                        <div class="form-group col-md-12 padding-r">
+                                            <textarea class="form-control" rows="10" name="detail">{{ project.detail }}</textarea>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <hr />
+                                        {{ form_row(form._token) }}
+
+                                        <!--BOOK NOW-->
+                                        <p>By clicking the Book Now button you are agreeing to our Terms of Service and Privacy Policy.</p>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                            <button class="btn btn-primary btn-skin" name="submit" type="submit"> Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Contact Information-->
+
+                </div>
+                <!--/Left Form Part-->
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="contact_information_right text-center">
+                        <div class="booking_summary">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/time3.png" alt="time3" /></div>
+                                <div class="box_content">
+                                    <h4>SAVES YOU TIME</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/Safety3.png" alt="Safety3" /></div>
+                                <div class="box_content">
+                                    <h4>For Your Safety</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/best3.png" alt="best3" /></div>
+                                <div class="box_content">
+                                    <h4>Best-Rated Professionals</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/Equipped3.png" alt="Equipped3" /></div>
+                                <div class="box_content">
+                                    <h4>We Are Well Equipped</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/touch3.png" alt="touch3" /></div>
+                                <div class="box_content">
+                                    <h4>Always In Touch</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="{{ url('homepage') }}bundles/app/images/booking/cash3.png" alt="cash3" /></div>
+                                <div class="box_content">
+                                    <h4>Cash-Free Facility</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting </p>
+                                </div>
+                            </div>
+                            <div class="box_btn">
+                                <button class="btn btn-primary booknow btn-skin" type="submit">LEARN MORE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.project-city').select2();
+            tinymce.init({ selector:'textarea',height : "100", menubar: false });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Businesses list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Usersid</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Landmark</th>
+                <th>Zip</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Fax</th>
+                <th>Tollfree</th>
+                <th>About</th>
+                <th>Workinghours</th>
+                <th>Employees</th>
+                <th>Entity</th>
+                <th>Size</th>
+                <th>Turnover</th>
+                <th>Certification</th>
+                <th>Contactperson</th>
+                <th>Ratting</th>
+                <th>Agree</th>
+                <th>Long</th>
+                <th>Lat</th>
+                <th>Featured</th>
+                <th>Verified</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Viewed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for business in businesses %}
+            <tr>
+                <td><a href="{{ path('home-service-provider_show', { 'id': business.id }) }}">{{ business.id }}</a></td>
+                <td>{{ business.usersId }}</td>
+                <td>{{ business.name }}</td>
+                <td>{{ business.address }}</td>
+                <td>{{ business.landmark }}</td>
+                <td>{{ business.zip }}</td>
+                <td>{{ business.phone }}</td>
+                <td>{{ business.email }}</td>
+                <td>{{ business.website }}</td>
+                <td>{{ business.fax }}</td>
+                <td>{{ business.tollFree }}</td>
+                <td>{{ business.about }}</td>
+                <td>{{ business.workingHours }}</td>
+                <td>{{ business.employees }}</td>
+                <td>{{ business.entity }}</td>
+                <td>{{ business.size }}</td>
+                <td>{{ business.turnOver }}</td>
+                <td>{{ business.certification }}</td>
+                <td>{{ business.contactPerson }}</td>
+                <td>{{ business.ratting }}</td>
+                <td>{{ business.agree }}</td>
+                <td>{{ business.long }}</td>
+                <td>{{ business.lat }}</td>
+                <td>{{ business.featured }}</td>
+                <td>{{ business.verified }}</td>
+                <td>{{ business.status }}</td>
+                <td>{% if business.createdAt %}{{ business.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if business.updatedAt %}{{ business.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if business.viewed %}{{ business.viewed|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('home-service-provider_show', { 'id': business.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('home-service-provider_edit', { 'id': business.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('home-service-provider_new') }}">Create a new business</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,412 @@
+{% stylesheets
+    'bundles/app/css/create_project.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+<style>
+    #autocomplete {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 99%;
+    }
+    .label {
+        text-align: right;
+        font-weight: bold;
+        width: 100px;
+        color: #303030;
+    }
+    #address {
+        display: none;
+        border: 1px solid #000090;
+        background-color: #f0f0ff;
+        width: 480px;
+        padding-right: 2px;
+    }
+    #address td {
+        font-size: 10pt;
+    }
+    .field {
+        width: 99%;
+    }
+    .slimField {
+        width: 80px;
+    }
+    .wideField {
+        width: 200px;
+    }
+</style>
+
+<div class="create-project-body">
+    <form id="find-pros-form" class="find-pros-form form-horizontal" action="{{ path('create_new_project') }}" method="post" autocomplete="off" role="form">
+        <div class="tab-content">
+        <fieldset class="row tab-pane active" id="search-widget-step-0">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="text-center"><img class="logo-dark hidden-xs text-center" style="text-shadow: 2px 2px 2px #FFFFFF;" src="/bundles/app/images/logo.png" width="150" alt="Dich Vu Nha Cua" /></div>
+                <h1 class="panel-heading-project">Find Trusted Home Improvement Pros</h1>
+                <p class="caption">Book Expert home cleaners and handymen at a moment's notice. just pick a<br/>
+                    time and we'll do the rest</p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-10 mb-5 col-sm-12 col-xs-12">
+                                <select class="form-control form-control-project project-industry" name="projectIndustry" id="projectIndustry" placeholder="Select industry">
+                                    <option value="">Select industry</option>
+                                    {% for key,val in industries %}
+                                        <option value="{{ val.id }}">{{ val.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label style="display: none;" id="projectIndustry-error" class="error" for="projectIndustry">Please select industry</label>
+                            </div>
+                            {#<div class="col-md-5 mb-5 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control form-control-project keyword" id="projectName" name="projectName" placeholder="What service do you need?" required />
+                            </div>#}
+                            <div class="col-md-2 mb-2 col-sm-12 col-xs-12 bottom-left">
+                                <button type="button" class="btn btn-primary booknow btn-skin btn-next">Find Pros</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="panel-footer">
+                        Not Registred? <a href="{{ path('fos_user_registration_register') }}">Register here</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-1">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">Let's find you <strong><span class="projectName"></span> Services</strong></h1>
+                <p class="caption">Please give us a few details so we can connect you with the best pros.</p>
+                <p class="caption">Choose the appropriate status for this project.</p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class="form-group col-md-12 padding-r">
+                                <ul class="how_often option-project-choice">
+                                    {% for key,val in projectStatuses %}
+                                        {% if  key == 0 %}
+                                            <input type="hidden" class="form-control-project" value="{{ val.id }}" name="projectStatus" id="projectStatus"/>
+                                        {% endif %}
+                                        <li class="{{  key == 0 ? ' active ':''}}" data-input-value="{{ val.id }}"><a href="javascript:void(0);">{{ val.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="button" class="btn btn-primary btn-skin btn-next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-2">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">When would you like this request to be completed?</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class="form-group col-md-12 padding-r">
+                                <ul class="how_often option-project-choice">
+                                    {% for key,val in projectPeriods %}
+                                        {% if  key == 0 %}
+                                            <input type="hidden" class="form-control-project" value="{{ val.id }}" name="projectCompleteTime" id="projectCompleteTime"/>
+                                        {% endif %}
+                                        <li class="{{  key == 0 ? ' active ':''}}" data-input-value="{{ val.id }}"><a href="javascript:void(0);">{{ val.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="button" class="btn btn-primary btn-skin btn-next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-3">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">What kind of location is this?</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class="form-group col-md-12 padding-r">
+                                <ul class="how_often option-project-choice">
+                                    {% for key,val in locationTypes %}
+                                        {% if  key == 0 %}
+                                            <input type="hidden" class="form-control-project" value="{{ val.id }}" name="projectLocationKind" id="projectLocationKind"/>
+                                        {% endif %}
+                                        <li class="{{  key == 0 ? ' active ':''}}" data-input-value="{{ val.id }}"><a href="javascript:void(0);"><i class="fa {{ val.icon }}"></i><br/>{{ val.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="button" class="btn btn-primary btn-skin btn-next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-4">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">Any project details you would like the pro to know?</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <textarea class="form-control" rows="10" name="projectDetail" id="projectDetail" style="background-color: #fff;color: #787777;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="button" class="btn btn-primary btn-skin btn-next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-5">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">What is your project address?</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="projectAddressStreet" class="col-sm-3 control-label">
+                                Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-project" onFocus="geolocate()" autocomplete="off" id="projectAddressStreet" placeholder="Address" name="projectAddressStreet" />
+                                <table id="address" style="display: none;">
+                                    <tr>
+                                        <td class="label">Street address</td>
+                                        <td class="slimField"><input class="field" id="street_number" name="streetNumber"
+                                                                     disabled="true"></input></td>
+                                        <td class="wideField" colspan="2"><input class="field" id="route"
+                                                                                 disabled="true"></input></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">City</td>
+                                        <td class="wideField" colspan="3"><input class="field" id="locality" name="locality"
+                                                                                 disabled="true"></input></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">State</td>
+                                        <td class="slimField"><input class="field"
+                                                                     id="administrative_area_level_1" name="administrativeAreaLevel1" disabled="true"></input></td>
+                                        <td class="label">Zip code</td>
+                                        <td class="wideField"><input class="field" id="postal_code" name="postalCode"
+                                                                     disabled="true"></input></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Country</td>
+                                        <td class="wideField" colspan="3"><input class="field" name="country"
+                                                                                 id="country" disabled="true"></input></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label for="projectAddressCity" class="col-sm-3 control-label">
+                                City</label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-project project-city" style="width: 100%" name="projectAddressCity" placeholder="Please select city">
+                                    <option value="">Select city</option>
+                                    {% for key,val in locations %}
+                                        <option value="{{ val.id }}">{{ val.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label style="display: none;" id="projectAddressCity-error" class="error" for="projectAddressCity">Please select city</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="button" class="btn btn-primary btn-skin btn-next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="row tab-pane" id="search-widget-step-0-6">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="panel-heading-project">We have matching <span class="projectName"></span> in your area!</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">
+                                First Name</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <input type="text" class="form-control form-control-project" value="{{ user? user.firstName:'' }}" id="projectContactPersonFirstName" placeholder="First Name" name="projectContactPersonFirstName" />
+                                </div>
+                                <label style="display: none;" id="projectContactPersonFirstName-error" class="error" for="projectContactPersonFirstName">First Name should not be null</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">
+                                Last Name</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <input type="text" class="form-control form-control-project" value="{{ user? user.lastName:'' }}" id="projectContactPersonLastName" placeholder="Last Name" name="projectContactPersonLastName" />
+                                </div>
+                                <label style="display: none;" id="projectContactPersonLastName-error" class="error" for="projectContactPersonLastName">Last Name should not be null</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">
+                                Email</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                                    <input type="text" class="form-control form-control-project" value="{{ user? user.email:'' }}" id="projectContactPersonEmail" placeholder="Email" name="projectContactPersonEmail" />
+                                </div>
+                                <label style="display: none;" id="projectContactPersonEmail-error" class="error" for="projectContactPersonEmail">Email should not be null</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">
+                                Phone</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-mobile" aria-hidden="true"></i></div>
+                                    <input type="text" class="form-control form-control-project" value="{{ (user and user.phone is defined)? user.phone:'' }}" id="projectContactPersonPhone" placeholder="Phone" name="projectContactPersonPhone" />
+                                </div>
+                                <label style="display: none;" id="projectContactPersonPhone-error" class="error" for="projectContactPersonPhone">Phone should not be null</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">&nbsp;</label>
+                            <div class="col-sm-9">
+                                <label class="mt-checkbox">
+                                    <input value="1" name="isFreeProjectCost" checked type="checkbox"> Yes, I would like free project cost information.
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                <a class="btn btn-previous" href="javascript:void(0);">Previous</a>
+                                <button type="submit" class="btn btn-primary btn-skin btn-next">Create and Preview</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="quick_btn">
+                                By submit this request, you are agreeing to our <a>Terms and Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+        <!--div id="statistic">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2 class="panel-heading-project">Popular Locations</h2>
+                <div class="downlod_text text-center">
+                    <button type="button" class="btn btn-primary btn-outline"><img src="bundles/app/images/icons/vietnam_white.png" width="30"/> Viet Nam</button>
+                    <button type="button" class="btn btn-primary btn-outline"><img src="bundles/app/images/icons/hanoi_white.png" width="30"/> Ha Noi</button>
+                    <button type="button" class="btn btn-primary btn-outline"><img src="bundles/app/images/icons/danang_white.png" width="30"/> Da Nang</button>
+                    <button type="button" class="btn btn-primary btn-outline"><img src="bundles/app/images/icons/saigon_white.png" width="30"/> Ho Chi Minh</button>
+                </div>
+            </div>
+        </div-->
+
+    </form>
+</div>
+<script>
+    // This example displays an address form, using the autocomplete feature
+    // of the Google Places API to help users fill in the information.
+
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+    var placeSearch, autocomplete;
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('projectAddressStreet')),
+            {types: ['geocode']});
+        autocomplete.setComponentRestrictions(
+            {'country': ['vn']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+            }
+        }
+    }
+
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jk0f18P-wM9kJYJSL-wUf8ie9dmbUsg&libraries=places&callback=initAutocomplete"
+        async defer></script>

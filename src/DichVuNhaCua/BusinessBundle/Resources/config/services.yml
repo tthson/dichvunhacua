@@ -1,0 +1,10 @@
+services:
+#    dich_vu_nha_cua_business.example:
+#        class: DichVuNhaCua\BusinessBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  dich_vu_nha_cua_business.handler:
+    class: DichVuNhaCua\BusinessBundle\Handler\BusinessHandler
+    arguments:
+        - '@doctrine.orm.entity_manager'
+        - '@translator'
+        - '@service_container'

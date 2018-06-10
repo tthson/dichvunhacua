@@ -1,0 +1,393 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <!--Banner Start-->
+            <section class="home-one content">
+                {{ include('@App/default/create_project_content.html.twig') }}
+            </section>
+            <!--/Banner End-->
+            {{ render(controller("AppBundle:Default:statisticNumber")) }}
+
+
+            <!--How it works Section Satrt-->
+            <section id="howitwork">
+                <div class="container text-center">
+                    <h1 class="panel-heading">How it works</h1>
+                    <div class="row">
+                        <div class="col-md-3 col-xs-offset-0 step-one">
+                            <div class="how-it-works-icon"></div>
+                            <h4>Tell Us</h4>
+                            <p>About Your Project</p>
+                        </div>
+                        <div class="col-md-1 hidden-xs hidden-sm"> </div>
+                        <div class="col-md-3 step-two">
+                            <div class="how-it-works-icon tools-icon-how-it-works"></div>
+                            <h4>Get Matched</h4>
+                            <p>by Our ProFinder Technology</p>
+                        </div>
+                        <div class="col-md-1 hidden-xs hidden-sm"> </div>
+                        <div class="col-md-3">
+                            <div class="how-it-works-icon connect-icon-how-it-works"></div>
+                            <h4>Get Connected</h4>
+                            <p>to the Best Pros</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--How it works Section End-->
+
+            <!--Our services Section Satrt-->
+            <section id="services">
+                <div class="container text-center">
+                    <h1 class="panel-heading">Our services</h1>
+                    <ul class="services-list">
+                        {% for key,val in industries %}
+                            <li>
+                                <a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':val.slug,'categoryParentId':val.parentId,'categoryId':val.id}) }}">
+                                    <img  height="50" src="bundles/app/images/services-icons/{{ val.icon }}" alt="{{ val.name }}" /><br />
+                                    {{ val.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            <!--Our services Section End-->
+
+            <!--Trust Security Section Satrt-->
+            <section id="trust-security">
+                <div class="container text-center">
+                    <h1 class="panel-heading">Your Trust and Security</h1>
+                    <div class="row text-left">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/time.png" alt="SAVES" /></div>
+                                <div class="box_content">
+                                    <h4>SAVES YOU TIME</h4>
+                                    <p>We helps you live smarter, giving you time to focus on what's most important.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/Safety.png" alt="Safety" /></div>
+                                <div class="box_content">
+                                    <h4>For Your Safety</h4>
+                                    <p>All of our Helpers undergo rigorous identity checks and personal interviews. Your safety is even our concern too.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/best.png" alt="Best"  /></div>
+                                <div class="box_content">
+                                    <h4>Best-Rated Professionals</h4>
+                                    <p>Our experienced taskers perform their tasks with dedication and perfection. We appreciate your reviews about the service.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/Equipped.png" alt="Equipped" /></div>
+                                <div class="box_content">
+                                    <h4>We Are Well Equipped</h4>
+                                    <p>Let us know if you have any specific equirement, otherwise our guys carry their own supplies.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/touch.png" alt="Always" /></div>
+                                <div class="box_content">
+                                    <h4>Always In Touch</h4>
+                                    <p>Book your service online on one tap, keep a track of your service status and also keep in touch with your Helper.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="icon_box_one">
+                                <div class="icons"><img src="bundles/app/images/cash.png" alt="cash" /></div>
+                                <div class="box_content">
+                                    <h4>Cash-Free Facility</h4>
+                                    <p>Pay through secure online mode only after your job is done.</p>
+                                    <a href="#" class="read-more">Read More <span class="glyphicon glyphicon-menu-right"></span></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Trust Security Section End-->
+
+            <!--Our Numbers Satrt-->
+            <section id="numbers">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!--counter box-->
+                            <div class="counter_box text-center">
+                                <div class="counter_icon"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></div>
+                                <div class="counter_number counter"><span class="stat-count">100</span>%</div>
+                                <h4 class="counter_name">Quality</h4>
+                            </div>
+                            <!--counter box end-->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!--counter box-->
+                            <div class="counter_box text-center">
+                                <div class="counter_icon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <div class="counter_number counter"><span class="stat-count">2500</span>+</div>
+                                <h4 class="counter_name">People Working</h4>
+                            </div>
+                            <!--counter box end-->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!--counter box-->
+                            <div class="counter_box text-center">
+                                <div class="counter_icon"><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+                                <div class="counter_number counter"><span class="stat-count">8</span> Years</div>
+                                <h4 class="counter_name">Years Experience</h4>
+                            </div>
+                            <!--counter box end-->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!--counter box-->
+                            <div class="counter_box text-center">
+                                <div class="counter_icon"><i class="fa fa-smile-o" aria-hidden="true"></i></div>
+                                <div class="counter_number counter"><span class="stat-count">900</span>+</div>
+                                <h4 class="counter_name">Happy Smiles</h4>
+                            </div>
+                            <!--counter box end-->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--/Our Numbers Satrt End-->
+
+            <!--Features Section Satrt-->
+            <section id="features">
+                <div class="container text-center features-section">
+                    <div class="row text-left">
+                        <div class="col-md-6 col-sm-6 col-xs-12 text-center"> <img src="bundles/app/images/qualit_work.png"  alt="Meet the Hire Pros"/> </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <h2>Meet the Hire Pros</h2>
+                            <div class="icon_box_one"> <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                <div class="box_content">
+                                    <h4>Lorem Ipsum is simply dummy text</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one"> <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                <div class="box_content">
+                                    <h4>Lorem Ipsum is simply dummy text</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one"> <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                <div class="box_content">
+                                    <h4>Lorem Ipsum is simply dummy text</h4>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's .</p>
+                                </div>
+                            </div>
+                            <div class="icon_box_one"> <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                                <div class="box_content">
+                                    <h4>Lorem Ipsum is simply dummy text</h4>
+                                    <p>dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Features Section End-->
+
+            <!--Testimonails Section Satrt-->
+            <section id="testimonails">
+                <div class="container text-center">
+                    <h1 class="panel-heading">Testimonails</h1>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel "> <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                </ol>
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner text-center">
+                                    <div class="item active">
+                                        <div class="avatar"><img class="img-circle" src="bundles/app/images/clinte1.png"   alt="Client 1"/></div>
+                                        <h3>Kevin Austin</h3>
+                                        <strong>Lorem Ipsum</strong>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, a</p>
+                                    </div>
+                                    <div class="item">
+                                        <div class="avatar"><img class="img-circle" src="bundles/app/images/testimonails2.png" alt="Client 2"></div>
+                                        <h3>Kevin Austin</h3>
+                                        <strong>Lorem Ipsum</strong>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, a</p>
+                                    </div>
+                                    <div class="item">
+                                        <div class="avatar"><img class="img-circle" src="bundles/app/images/testimonails3.png" alt="Client 3"></div>
+                                        <h3>Kevin Austin</h3>
+                                        <strong>Lorem Ipsum</strong>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, a</p>
+                                    </div>
+                                </div>
+                                <!-- Controls --> <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> <span class="fa fa-angle-left"></span> </a> <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"> <span class="fa fa-angle-right"></span> </a> </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Testimonails Section End-->
+
+            <!--Downlod app Section Satrt-->
+            <section id="downlod_app">
+                <div class="container text-center">
+                    <div class="row text-left">
+                        <div class="col-md-5 col-sm-12 col-xs-12 responsive-look"> <img src="bundles/app/images/mobile.png" alt="DOWNLOAD APP NOW"/> </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                            <div class="downlod_text text-center">
+                                <h2><strong>DOWNLOAD</strong> APP NOW</h2>
+                                <p>Select your device platform and get<br />
+                                    download start</p>
+                                <button type="button" class="btn btn-primary btn-outline"><i class="fa fa-apple" aria-hidden="true"></i> APPLE USER</button>
+                                <button type="button" class="btn btn-primary btn-outline"><i class="fa fa-android" aria-hidden="true"></i> ANDROID USER</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Features Section End-->
+
+            <!--Trusted Section Satrt-->
+            <section id="trusted">
+                <div class="container text-center">
+                    <div class="row text-left">
+                        <div class="col-md-2 col-sm-3 col-xs-12">
+                            <h3 class="panel-heading">TRUSTED BY</h3>
+                        </div>
+                        <div class="col-md-10 col-sm-12 col-xs-12">
+                            <ul class="trusted_logo owl-carousel" id="trusted-slider">
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo1.png" alt="Logo 1"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo2.png" alt="Logo 2"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo3.png" alt="Logo 3"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo1.png" alt="Logo 4"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo2.png" alt="Logo 5"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo2.png" alt="Logo 6"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo3.png" alt="Logo 7"/></a></li>
+                                <li><a href="#"><img src="bundles/app/images/Trusted_logo1.png" alt="Logo 8"/></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Trusted Section End-->
+
+            <!--Call To Action Start-->
+            <section id="call-to-action">
+                <div class="container free_consultation">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-12 text-left">
+                            <h2>Do you have business?</h2>
+                            <p>Provide your services online FOR FREE. It's easier than you think!</p>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 m-text-center text-right"> <a href="{{ path('home-service-provider_create') }}" class="btn btn-primary btn-outline">Add Business, it's Free</a> </div>
+                    </div>
+                </div>
+            </section>
+            <!--Call To Action End-->
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/jquery/jquery.validate.js') }}"></script>
+    <script>
+        tinymce.init({ selector:'textarea',height : "100", menubar: false });
+        jQuery(document).ready(function() {
+            $('.project-industry').select2();
+            $('.project-city').select2();
+            $("#find-pros-form").validate(
+                {
+                    rules: {
+                        projectName: "required",
+                        projectIndustry: "required",
+                        projectAddressStreet: "required",
+                        //projectAddressCity: "required",
+                        projectContactPersonFirstName: "required",
+                        projectContactPersonLastName: "required",
+                        projectContactPersonEmail: {
+                            "required": true,
+                            'email': true
+                        },
+            projectContactPersonPhone: "required"
+                    },
+                    messages: {
+                        projectName: "Tell us about service that you need.",
+                        projectIndustry: "Please select industry",
+                        projectAddressStreet: "Address should not be blank.",
+                        //projectAddressCity: "City should not be blank.",
+                        projectContactPersonFirstName: "First Name should not be empty.",
+                        projectContactPersonLastName: "Last Name should not be empty.",
+                        projectContactPersonEmail: {
+                            "required": "Email should not be empty.",
+                            'email': "Email is not valid."
+                        },
+                        projectContactPersonPhone: "Phone should not be empty."
+                    }
+                }
+            );
+            $('.btn-next').on('click', function () {
+                var parent_fieldset = $(this).parents('fieldset');
+                var next_step = true;
+
+                /*parent_fieldset.find('input[type="text"],input[type="email"]').each(function () {
+                    if ($(this).val() == "") {
+                        $(this).addClass('input-error');
+                        next_step = false;
+                    } else {
+                        $(this).removeClass('input-error');
+                    }
+                });*/
+
+                if (next_step) {
+                    var isValid = true;
+                    parent_fieldset.find('.form-control-project').each(function( index ) {
+                        if (!($( this ).valid())) {
+                            isValid = false;
+                        }
+                    });
+                    if (isValid) {
+                        parent_fieldset.fadeOut(400, function () {
+                            $(this).next().fadeIn();
+                        });
+                    }
+                }
+
+            });
+        });
+        // previous step
+        $('.btn-previous').on('click', function () {
+            $(this).parents('fieldset').fadeOut(400, function () {
+                $(this).prev().fadeIn();
+            });
+        });
+        $('.option-project-choice li').on('click', function () {
+            var parrent_input = $(this).parents('div.form-group').find('input');
+            var value_input = $(this).attr("data-input-value");
+            $(this).parents('div.form-group').find('li').each(function( index ) {
+                $( this ).removeClass("active");
+            });
+            $(this).addClass('active');
+            parrent_input.val(value_input);
+        });
+        $('#projectIndustry').on('change', function(){
+            $('span.projectName').html($("#projectIndustry option:selected").text());
+        });
+    </script>
+{% endblock %}

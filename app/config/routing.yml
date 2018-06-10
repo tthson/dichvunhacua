@@ -1,0 +1,33 @@
+dich_vu_nha_cua_api:
+    resource: "@DichVuNhaCuaApiBundle/Controller/"
+    type:     annotation
+    prefix:   /api/v1/
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+    prefix: /
+dich_vu_nha_cua_project:
+    resource: "@DichVuNhaCuaProjectBundle/Controller/"
+    type:     annotation
+    prefix:   /
+dich_vu_nha_cua_business:
+    resource: "@DichVuNhaCuaBusinessBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+oneup_uploader:
+    resource: .
+    type: uploader
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /admin

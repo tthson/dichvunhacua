@@ -1,0 +1,9 @@
+{% if isShowSwitchLocale == true %}
+    <li class="dropdown dropdown-user">
+        <a href="{{ app.request.attributes.get('_route') ~ '?_locale=' ~ switchLocale }}" class="dropdown-toggle">
+            <img id="switch-language" alt="{{ 'top_menu.switch_language'|trans }}" width="20"
+                 src="{{ asset('bundles/app/images/flags/' ~ switchLocale ~ '.png') }}"/>
+            <span class="username username-hide-on-mobile">	&nbsp; </span>
+        </a>
+    </li>
+{% endif %}

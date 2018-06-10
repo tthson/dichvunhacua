@@ -1,0 +1,41 @@
+{% extends "@App/base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/app/css/signin.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <section id="service_banner">
+                <div class="container text-center service_banner_layer">
+                    <div class="banner_content">
+                        <div class="row text-left">
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <h1 class="service-heading">Book Home Services Today</h1>
+                                <p>Top Place To Find Home Pros. Top Place for Home Pros To Work.</p>
+                                <h2>Why choose DichVuNhaCua.com?</h2>
+                                <ul class="featurs_list">
+                                    <li><i class="fa fa-check-square-o" aria-hidden="true"></i> Find local prescreened home professionals and instantly book appointments online.</li>
+                                    <li><i class="fa fa-check-square-o" aria-hidden="true"></i> Providing homeowners the tools and resources for home repair, maintenance and improvement projects.</li>
+                                    <li><i class="fa fa-check-square-o" aria-hidden="true"></i> DichVuNhaCua.com's marketplace lets homeowners view average project costs using True Cost Guide.</li>
+                                    <li><i class="fa fa-check-square-o" aria-hidden="true"></i> DichVuNhaCua.com is the operator of the largest home services marketplace across the Vietnam.</li>
+                                </ul>
+                                <a class="btn btn-warning btn-booknow" href="#"> Book now </a> </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <div class="quick_contact">
+                                    <p>Please sign in</p>
+                                    {{ include('@App/default/login_content.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock body %}

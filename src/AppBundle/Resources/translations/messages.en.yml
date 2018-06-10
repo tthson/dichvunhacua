@@ -1,0 +1,228 @@
+"Bad credentials.": Invalid username or password.
+admin: 
+  customer: 
+    address: Address
+    alternate_phone: "Alternate Phone"
+    close: Close
+    contract_end_date: "Contract End Date"
+    contract_start_date: "Contract Start Date"
+    customer_list: "Customer List"
+    email: Email
+    hr_admin_email: Email
+    hr_admin_name: Name
+    icare_member_eligible_fields: "iCare Member Eligible Fields"
+    icare_staff: "iCare Staff"
+    imperonate_introducetion_title: "Click <pre class=\"mt-code\">Impersonate</pre> button allows you to act as the primary contact on behalf of this customer."
+    impersonate: Impersonate
+    impersonate_introducetion_tooltips: "Impersonation allows you to act as the primary contact on behalf of this customer."
+    netsuite_id: "NetSuite ID"
+    number_of_employee: "Number of Employees"
+    phone: Phone
+    partnership_development: "Partnership Development"
+    primary_contact: "Primary Contact"
+    repayment_mechanism: "Repayment Mechanism"
+    repayment_method_1: Salary Withholding
+    repayment_method_2: Bank Direct Debit
+    repayment_method_3: Cash
+    repayment_method_4: Manual Bank Debit
+    direct_debit_service_fee: Direct Debit Service Fee per transaction
+    direct_debit_service_fee_required: Please input Direct Debit Service Fee
+    direct_debit_service_fee_hint: If the customer uses bank direct debit as a repayment method, iCare may charge a service fee. This fee is for each repayment transaction and is VAT inclusive.
+    salary_payment_day: "Salary Payment Day"
+    search_customer: "search customer"
+    type_of_contract: "Type of Contract"
+    type_of_contract_1: Company
+    type_of_contract_2: "Labor Union"
+    type_of_contract_3: Cooperative
+    vat_tax_number: "VAT Tax Number"
+    enable_cash_advance: Enable Cash Advance
+    disable_cash_advance: Disable Cash Advance
+    enable_cash_advance_title: Enable Cash Advance Service
+    select_a_fund: Select a Fund
+    cancel: Cancel
+    submit: Submit
+    disable_cash_advance_confirm: Disable Cash Advance Service
+    disable_cash_advance_message: Are you sure you want to discontinue cash advance service for this customer?
+    not_disable: Do not disable
+    disable: Disable
+    business_units: Business Units
+    business_unit_info: Business Unit Information
+    bu_name: BU Name
+    bu_id: BU Id
+    netsuite_bu_id: NetSuite BU ID
+    repayment_method: Repayment Method
+    funding_source: Funding Source
+    bank_expertise_code: "TCB Organization ID"
+    bu_payroll_bank_name: BU Payroll Bank Name
+    icare_bank_name: iCare Bank Name
+    icare_bank_account_number: iCare Bank Account Number
+    icare_bank_account_name: iCare Bank Account Name
+    icare_bank_account_branch: iCare Bank Account Branch
+    bank_collect_address: Bank Collect Address
+    select: Select
+    loading: "Loading ..."
+    repayment_method_required: Please select a repayment method.
+    funding_source_required: Please select a funding source.
+    no_customer_assigned: You are not assigned for any customer!
+  user:
+    cancel: Cancel
+    create_user: "Create User"
+    manage_user: "Manage Users"
+    submit: Submit
+    update_user: "Update User"
+  setting:
+    so_condition:
+       title: Configure SO Condition Exception
+       listing.header: List SO Condition Exception For Bank Integration Submission
+       listing.table.no_record_message: There is no SO condition exception!
+       listing.table.header.id: ID#
+       listing.table.header.customer: Customer
+       listing.table.header.business_unit: Business Unit
+       listing.table.header.fund: Fund
+       listing.table.header.so_condition: SO Condition
+       listing.table.header.action: Action
+       listing.table.action.delete: Delete
+       action.create_new: Create New
+       create_so_condition_exception.form.title: SO Condition Exception Definition
+       create_so_condition_exception.form.customer: Customer
+       create_so_condition_exception.form.customer_placeholder: Select Customer
+       create_so_condition_exception.form.error.customer_blank: Please select a customer
+       create_so_condition_exception.form.business_unit: Business Unit
+       create_so_condition_exception.form.business_unit_placeholder: Select Business Unit
+       create_so_condition_exception.form.error.business_unit_blank: Please select a business unit
+       create_so_condition_exception.form.so_status: SO Status
+       create_so_condition_exception.form.so_status_placeholder: Select a SO status
+       create_so_condition_exception.form.error.condition_blank: Please select a SO status
+       create_so_condition_exception.form.action.save: Save
+change_password: 
+  flash: 
+    success: "The password has been changed"
+  submit: "Change password"
+common: 
+  dashboard: Dashboard
+form: 
+  current_password: "Current password"
+  email: Email
+  first_name: "First Name"
+  group_name: "Group name"
+  last_name: "Last Name"
+  name: Name
+  new_password: "New password"
+  new_password_confirmation: "Repeat new password"
+  password: Password
+  password_confirmation: "Repeat password"
+  phone: Phone
+  username: Username
+group: 
+  edit: 
+    submit: "Update group"
+  flash: 
+    created: "The group has been created"
+    deleted: "The group has been deleted"
+    updated: "The group has been updated"
+  new: 
+    submit: "Create group"
+  show: 
+    name: "Group name"
+import_issues: 
+  body: |
+      Hi %iCareFirstName%,
+      %uploaderFirstName% from %companyName% uploaded the file called %fileName%. This file contains errors that need your assistance in resolving the issue.
+      
+      Thanks,
+      iCare Benefits.
+  subject: "On-boarding issues"
+layout: 
+  logged_in_as: "Logged in as %username%"
+  login: Login
+  logout: Logout
+  register: Register
+  short_description_company_footer: "Dichvunhacua.com is a digital marketplace evolving the way homeowners connect with service professionals to complete home projects."
+  sign_up_newsletter: "Singn up Newsletter"
+  about_us: "About Us"
+  home: "Home"
+  about: "About Us"
+  service: "Services"
+  contact: "Contact"
+  business: "Business"
+  project: "Projects"
+profile: 
+  edit: 
+    submit: Update
+  flash: 
+    updated: "The profile has been updated"
+  show: 
+    email: Email
+    username: Username
+registration: 
+  accept_icare_benefits_access_invitation: "Accept Dich Vu Nha Cua Website’ access invitation"
+  back: "Back to the originating page."
+  back_to_login: Back
+  check_email: "An email has been sent to %email%. It contains an activation link you must click to activate your account."
+  confirmed: "Congrats <strong>%username%</strong>, your account is now activated."
+  email: 
+    get_started: "get started"
+    hello_title: "Hello %firstName%,"
+    message: |
+
+        To finish activating your account - please visit %confirmationUrl%
+
+        This link can only be used once to validate your account.
+
+    signature: "Regards,<br/>Dich Vu Nha Cua Website Team."
+    subject: "Welcome %firstName% %lastName% to Dich Vu Nha Cua Website!"
+  enter_account_details: "Enter your account details below"
+  enter_personal_details: "Enter your personal details below"
+  flash: 
+    user_created: "The user has been created successfully"
+  go_to_dashboard: "Go To Your Dashboard"
+  register_success: ~
+  signup: "Sign Up"
+  submit: Register
+  tnc_text: "I agree to the <a href=\"javascript:;\">Terms of Service </a> & <a href=\"javascript:;\">Privacy Policy </a>"
+resetting: 
+  back: Back
+  check_email: "An email has been sent. It contains a link you must click to reset your password."
+  email: 
+    message: |
+        Hello %username%!
+        
+        To reset your password - please visit %confirmationUrl%
+        
+        Regards,
+        the Team.
+    subject: "Reset Password"
+  flash: 
+    success: "The password has been reset successfully"
+  forgot_password: "Forget Password ?"
+  password_already_requested: "The password for this user has already been requested within the last 24 hours."
+  request: 
+    email: "Email address"
+    invalid_username: "The username or email address \"%username%\" does not exist."
+    submit: "Reset password"
+    username: Username
+  reset: 
+    submit: "Change password"
+security: 
+  login: 
+    create_account: "Create Account"
+    enter_username_password: "Enter any username and password."
+    forgot_password: "Forgot Password?"
+    password: Password
+    please_login: "Please login."
+    remember_me: "Remember me"
+    set_password: "Set Password"
+    submit: Login
+    username: Username
+    username_email: Email
+    welcome: Welcome.
+
+unsubscribe:
+  authentication:
+    invalid: Not found user.
+    success: "You have unsubscribed successfully."
+
+resubscribe:
+  authentication:
+    invalid: Not found user.
+    success: "You have unsubscribed successfully."

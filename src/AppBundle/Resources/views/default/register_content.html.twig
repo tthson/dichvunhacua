@@ -1,0 +1,50 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-signin'}}) }}
+<div class="form-group">
+    <label class="control-label visible-ie8 visible-ie9">First Name</label>
+    {{ form_widget(form.first_name, {'attr': {'placeholder':"First Name"}}) }}
+    {{ form_errors(form.first_name) }}
+</div>
+<div class="form-group">
+    <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+    {{ form_widget(form.last_name, {'attr': {'placeholder':"Last Name"}}) }}
+    {{ form_errors(form.last_name) }}
+</div>
+<div class="form-group">
+    <label class="control-label visible-ie8 visible-ie9">{{ 'form.email'|trans }}</label>
+    {{ form_widget(form.email, {'attr': {'placeholder':"form.email"|trans}}) }}
+    {{ form_errors(form.email) }}
+</div>
+<div class="form-group">
+    <label class="control-label visible-ie8 visible-ie9">{{ 'form.password'|trans }}</label>
+    {{ form_widget(form.plainPassword.first, {'attr': {'placeholder':"form.password"|trans}}) }}
+    {{ form_errors(form.plainPassword.first) }}
+</div>
+<div class="form-group">
+    <label class="control-label visible-ie8 visible-ie9">{{ 'form.password_confirmation'|trans }}</label>
+    {{ form_widget(form.plainPassword.second, {'attr': {'placeholder':"form.password_confirmation"|trans}}) }}
+    {{ form_errors(form.plainPassword.second) }}
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <button type="submit" name="Submit" value="I agree" class="btn btn-primary btn-block" tabindex="6">
+            <span>{{ 'registration.submit'|trans }}</span>
+        </button>
+        <span class="processing" style="display: none; height:30px;"></span>
+    </div>
+</div>
+<div class="col-md-12 text-center">
+    <span class="gray-light small link-list">By clicking on "Register", I have read and accept <br>
+        <a href="privacy-policy" title="Privacy Policy">Privacy Policy</a> and <a href="terms-of-use" title="Terms of Use">Terms of Use</a>
+    </span>
+</div>
+<hr/>
+<p class="text-center">Already a User?
+    <a href="{{ path('fos_user_security_login') }}">
+        <strong>Sign in</strong>
+    </a>
+</p>
+{{ form_end(form) }}

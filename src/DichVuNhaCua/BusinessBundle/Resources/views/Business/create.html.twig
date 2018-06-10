@@ -1,0 +1,315 @@
+{% extends "@App/base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        'bundles/app/css/jquery.fileupload.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">Home Service Provider</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="{{ path('home-service-provider_index') }}">Home Service Provider</a></li>
+                <li class="active">Create New Business</li>
+            </ol>
+        </div>
+    </div>
+    <section id="service_page" class="blog-with-sidebar-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light ">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject font-dark sbold uppercase">Home Service Provider Information</span>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    <a href="{{ path('home-service-provider_index') }}"> <i class="fa fa-list"></i> Back to the list</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Company Name</label>
+                                        <div class="col-md-9">
+                                            <input name="dichvunhacua_businessbundle_business[certification]" class="form-control"
+                                                   value="{{ business.certification|trim }}"
+                                                   placeholder="Please enter company name.">
+                                            {{ form_errors(form.certification) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Service Name</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.name, { 'attr': {'class': 'form-control', 'placeholder':"Please enter service name."} }) }}
+                                            {{ form_errors(form.name) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Company Logo</label>
+                                        <div class="col-md-9">
+                                            <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span>Select logo...</span>
+                                                <input id="fileuploadLogo" type="file" name="company-logo" data-url="{{ oneup_uploader_endpoint('business_logo') }}">
+                                            </span><br/>
+                                            {% if business.logo is not empty %}
+                                                <div id="logo_preview" class="col-md-2 img-wrap">
+                                                    <button type="button" class="close delete-logo">x</button>
+                                                    <img src="{{ url('homepage')~ 'uploads/business_logo/' ~ business.logo }}" width="110"/>
+                                                    {{ form_widget(form.logo) }}
+                                                </div>
+                                            {% else %}
+                                                <div id="logo_preview" class="col-md-2 img-wrap">
+                                                    <button type="button" class="close delete-logo" style="display: none">x</button>
+                                                    <img src="" width="110"/>
+                                                    {{ form_widget(form.logo) }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Address</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.address, { 'attr': {'class': 'form-control', 'placeholder':"Please enter address."} }) }}
+                                            {{ form_errors(form.address) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Phone</label>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-mobile"></i>
+                                                </span>
+                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control', 'placeholder':"Please enter phone."} }) }}
+                                            </div>
+                                            {{ form_errors(form.phone) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Fax</label>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-fax"></i>
+                                                </span>
+                                                {{ form_widget(form.fax, { 'attr': {'class': 'form-control', 'placeholder':"Please enter fax."} }) }}
+                                            </div>
+                                            {{ form_errors(form.fax) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-envelope"></i>
+                                                </span>
+                                                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':"Please enter email."} }) }}
+                                            </div>
+                                            {{ form_errors(form.email) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Website</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.website, { 'attr': {'class': 'form-control', 'placeholder':"Please enter website."} }) }}
+                                            {{ form_errors(form.website) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">About Service</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.about, { 'attr': {'class': 'form-control', 'placeholder':"Please enter about service."} }) }}
+                                            {{ form_errors(form.about) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Company Size</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.employees, { 'attr': {'class': 'form-control', 'placeholder':"Please enter company size."} }) }}
+                                            {{ form_errors(form.employees) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Industry</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.categories, { 'attr': {'class': 'form-control businessCategories','name':"categories[]", 'placeholder':"Please select industries."} }) }}
+                                            {{ form_errors(form.categories) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Images</label>
+                                        <div class="col-md-9">
+                                            <span class="btn btn-success fileinput-button">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                                <span>Select photos...</span>
+                                                <input id="fileupload" type="file" name="images[]" data-url="{{ oneup_uploader_endpoint('business_images') }}" multiple>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3"></div>
+                                        <div id="images_preview" class="col-md-9 row">
+                                            {% for image in business.images %}
+                                                <div class="col-md-2 img-wrap">
+                                                    <button type="button" class="close delete-image" data-image-id="{{ image.id }}" data-image-path="{{ image.fileName}}" data-business-id="{{ image.business.id }}">x</button>
+                                                    <img src="{{ url('homepage')~ 'uploads/business_images/' ~ image.fileName }}" width="110"/>
+                                                    <input type="hidden" name="business-images[]" value="{{ image.fileName ~ "#_#" ~ image.id ~ "#_#" ~ image.business.id }}"/>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Working Hours</label>
+                                        <div class="col-md-9">
+                                            {{ form_widget(form.workingHours, { 'attr': {'class': 'form-control', 'placeholder':"Please enter working hours."} }) }}
+                                            {{ form_errors(form.workingHours) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            {{ form_row(form._token) }}
+                                            <button type="submit" class="btn blue">Submit</button>
+                                            <button type="button" class="btn default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END SAMPLE FORM PORTLET-->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/tinymce/tinymce.min.js') }}"></script>
+    <script src={{ asset('bundles/app/js/jquery/vendor/jquery.ui.widget.js') }}></script>
+    <script src={{ asset('bundles/app/js/jquery/jquery.iframe-transport.js') }}></script>
+    <script src={{ asset('bundles/app/js/jquery/jquery.fileupload.js') }}></script>
+    <script src="{{ asset('bundles/app/js/jquery/bootbox.min.js') }}"></script>
+    <script>
+        tinymce.init({ selector:'textarea',height : "300", menubar: false });
+        $('.businessCategories').select2();
+        var $collectionHolder;
+
+        // setup an "add a image" link
+        var $addImageLink = $('<button type="button" class="add_image_link btn blue">Add a image</button>');
+        var $newLinkLi = $('<div></div>').append($addImageLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('div.images');
+
+            // add the "add a tag" anchor and li to the tags ul
+            //$collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addImageLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addImageForm($collectionHolder, $newLinkLi);
+            });
+            $('#fileupload').fileupload({
+                dataType: 'json',
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize: 999000,
+                done: function (e, data) {
+                    //$.each(data.result.files, function (index, file) {
+                    var file = data.result.files;
+                    if (file.name) {
+                        var image = $('<img>')
+                            .attr('width', "110")
+                            .prop('src', "{{ url('homepage') }}/uploads/business_images/" + file.name);
+                        var hiddenInput = $('<input type="hidden" name="business-images[]">');
+                        hiddenInput.val(file.name + "#_#0#_#0");
+                        var $newImageDiv = $('<div class="col-md-2"></div>').append(image).append(hiddenInput);
+                        $("#images_preview")
+                            .append($newImageDiv);
+                    } else if (file.error) {
+                        var error = $('<span class="text-danger"/>').text(file.error);
+                        $(data.context.children()[index])
+                            .append('<br>')
+                            .append(error);
+                    }
+                    //$('<p/>').text(file.name).appendTo('#files');
+                    //});
+                },
+            });
+            $(".delete-image").click(function(e){
+                var imageId = $(this).attr("data-image-id");
+                var imagePath = $(this).attr("data-image-path");
+                var businessId = $(this).attr("data-business-id");
+                var $imageFormDiv = $(this).closest('div.img-wrap');
+                e.preventDefault();
+                $imageFormDiv.remove();
+            });
+            $('#fileuploadLogo').fileupload({
+                dataType: 'json',
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize: 999000,
+                done: function (e, data) {
+                    //$.each(data.result.files, function (index, file) {
+                    var file = data.result.files;
+                    if (file.name) {
+                        $("#logo_preview").find('img').prop('src', "{{ url('homepage') }}/uploads/business_logo/" + file.name);
+                        $("#logo_preview").find('button').show();
+                        $("#dichvunhacua_businessbundle_business_logo").val(file.name);
+                    } else if (file.error) {
+                        var error = $('<span class="text-danger"/>').text(file.error);
+                        $(data.context.children()[index])
+                            .append('<br>')
+                            .append(error);
+                    }
+                }
+            });
+            $(".delete-logo").click(function(e){
+                var $imageFormDiv = $(this).closest('div.img-wrap');
+                e.preventDefault();
+                $imageFormDiv.find('button').hide();
+                $imageFormDiv.find('img').prop('src', '');
+                $imageFormDiv.find('input').val('');
+            });
+        });
+        function addImageForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<div></div>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+    </script>
+{% endblock %}

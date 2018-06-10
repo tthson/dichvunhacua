@@ -1,0 +1,227 @@
+"Bad credentials.": "Tên đăng nhập hoặc password không đúng"
+admin: 
+  customer: 
+    address: "Địa chỉ"
+    alternate_phone: "Số điện thoại thay thế"
+    bank_collect_address: "Bank Collect Address"
+    bank_expertise_code: "TCB Organization ID"
+    bu_name: "BU Name"
+    bu_id: BU Id
+    netsuite_bu_id: NetSuite BU ID
+    bu_payroll_bank_name: "BU Payroll Bank Name"
+    business_unit_info: "Business Unit Information"
+    business_units: "Business Units"
+    cancel: Cancel
+    close: Đóng
+    contract_end_date: "Ngày kết thúc hợp đồng"
+    contract_start_date: "Ngày bắt đầu hợp đồng"
+    customer_list: "Danh sách Doanh nghiệp"
+    disable: "Disable"
+    disable_cash_advance: "Disable Cash Advance"
+    disable_cash_advance_confirm: "Disable Cash Advance Service"
+    disable_cash_advance_message: "Are you sure you want to discontinue cash advance service for this customer?"
+    email: Email
+    enable_cash_advance: "Enable Cash Advance"
+    enable_cash_advance_title: "Enable Cash Advance Service"
+    funding_source: "Funding Source"
+    funding_source_required: "Please select a funding source."
+    hr_admin_email: Email
+    hr_admin_name: Tên
+    icare_bank_account_branch: "iCare Bank Account Branch"
+    icare_bank_account_name: "iCare Bank Account Name"
+    icare_bank_account_number: "iCare Bank Account Number"
+    icare_bank_name: "iCare Bank Name"
+    icare_member_eligible_fields: "Các trường thông tin hợp lệ của thành viên iCare"
+    icare_staff: "Nhân viên iCare"
+    imperonate_introducetion_title: "Bấm nút <pre class=\"mt-code\"> Thực hiện thay thế </pre> để thực hiện thao tác thay thế cho Nhân sự Chỉ định (nhân sự đại diện cho Doanh nghiệp)"
+    impersonate: "Thực hiện thay thế"
+    impersonate_introducetion_tooltips: "Tính năng \"Thực hiện thay thế\" cho phép bạn thực hiện thao tác thay thế cho Nhân sự Chỉ định (nhân sự đại diện cho Doanh nghiệp)"
+    loading: "Loading ..."
+    netsuite_id: "Netsuit ID"
+    no_customer_assigned: "You are not assigned for any customer!"
+    not_disable: "Do not disable"
+    number_of_employee: "Số lượng nhân viên"
+    partnership_development: "Partnership Development"
+    phone: "Điện thoại"
+    primary_contact: "Nhân sự đại diện"
+    repayment_mechanism: "Phương thức thanh toán"
+    repayment_method: "Repayment Method"
+    repayment_method_1: "Thu hộ qua lương"
+    repayment_method_2: "Thu hộ qua Ngân hàng chi lương"
+    repayment_method_3: "Tiền mặt"
+    repayment_method_4: Manual Bank Debit
+    direct_debit_service_fee: Direct Debit Service Fee per transaction
+    direct_debit_service_fee_required: Please input Direct Debit Service Fee
+    direct_debit_service_fee_hint: If the customer uses bank direct debit as a repayment method, iCare may charge a service fee. This fee is for each repayment transaction and is VAT inclusive.
+    repayment_method_required: "Please select a repayment method."
+    salary_payment_day: "Ngày trả lương"
+    search_customer: "Tìm Doanh nghiệp"
+    select: Select
+    select_a_fund: "Select a Fund"
+    submit: Submit
+    type_of_contract: "Loại Hợp đồng"
+    type_of_contract_: ""
+    type_of_contract_1: "Công ty"
+    type_of_contract_2: "Công đoàn"
+    type_of_contract_3: "Hợp tác"
+    vat_tax_number: "Mã số thuế"
+  user: 
+    cancel: Hủy
+    create_user: "Người tạo"
+    manage_user: "Quản lý người dùng"
+    submit: "Thực hiện"
+    update_user: "Người cập nhật"
+  setting:
+    so_condition:
+       title: Configure SO Condition Exception
+       listing.header: List SO Condition Exception For Bank Integration Submission
+       listing.table.no_record_message: There is no SO condition exception!
+       listing.table.header.id: ID#
+       listing.table.header.customer: Customer
+       listing.table.header.business_unit: Business Unit
+       listing.table.header.fund: Fund
+       listing.table.header.so_condition: SO Condition
+       listing.table.header.action: Action
+       listing.table.action.delete: Delete
+       action.create_new: Create New
+       create_so_condition_exception.form.title: SO Condition Exception Definition
+       create_so_condition_exception.form.customer: Customer
+       create_so_condition_exception.form.customer_placeholder: Select Customer
+       create_so_condition_exception.form.error.customer_blank: Please select a customer
+       create_so_condition_exception.form.business_unit: Business Unit
+       create_so_condition_exception.form.business_unit_placeholder: Select Business Unit
+       create_so_condition_exception.form.error.business_unit_blank: Please select a business unit
+       create_so_condition_exception.form.so_status: SO Status
+       create_so_condition_exception.form.so_status_placeholder: Select a SO status
+       create_so_condition_exception.form.error.condition_blank: Please select a SO status
+       create_so_condition_exception.form.action.save: Save
+change_password: 
+  flash: 
+    success: "Password đã thay đổi"
+  submit: "Đổi password"
+common: 
+  dashboard: "Tổng quan"
+form: 
+  current_password: "Password hiện tại"
+  email: Email
+  first_name: Tên
+  group_name: "Tên nhóm"
+  last_name: Họ
+  name: Tên
+  new_password: "Password mới"
+  new_password_confirmation: "Nhập lại password mới"
+  password: Password
+  password_confirmation: "Nhập lại password"
+  phone: "Điện thoại"
+  username: "Tên đăng nhập"
+group: 
+  edit: 
+    submit: "Cập nhật nhóm"
+  flash: 
+    created: "Nhóm đã được tạo"
+    deleted: "Nhóm đã xóa thành công!"
+    updated: "Nhóm đã được cập nhật"
+  new: 
+    submit: "Tạo nhóm"
+  show: 
+    name: "Tên nhóm"
+import_issues: 
+  body: |-
+      Xin chào %iCareFirstName%,
+      %uploaderFirstName% thuộc Doanh nghiệp %companyName% đã upload file tên %fileName%. Hệ thống không thực hiện được việc upload file này. Bạn hãy kiểm tra xem nội dung file có đúng định dạng không? Bạn có thể gửi file cho nhân viên iCare hỗ trợ tại mục Yêu cầu gửi iCare.
+      
+      Xin cám ơn,
+      iCare Benefits.
+  subject: "Vấn đề vừa phát sinh"
+layout: 
+  logged_in_as: "Đăng nhập bởi %username%"
+  login: "Đăng nhập"
+  logout: "Đăng xuất"
+  register: "Người đăng ký"
+  short_description_company_footer: "Dichvunhacua.com là sàn tìm dịch vụ liên quan tới nhà cửa lớn..."
+  sign_up_newsletter: "Đăng ký Bản Tin"
+  about_us: "Giới thiệu"
+  home: "Trang chủ"
+  about: "Giới thiệu"
+  service: "Dịch vụ"
+  contact: "Liên hệ"
+  business: "Dịch vụ nhà cửa"
+  project: "Dự án"
+profile: 
+  edit: 
+    submit: "Cập nhật"
+  flash: 
+    updated: "Hồ sơ đã được cập nhật"
+  show: 
+    email: Email
+    username: "Tên đăng nhập"
+registration: 
+  accept_icare_benefits_access_invitation: "Chấp nhận lời mời truy cập của iCare Benefits"
+  back: "Trở lại trang ban đầu"
+  back_to_login: "Quay lại"
+  check_email: "Một email đã gửi đến địa chỉ %email%. Nội dung email có đường dẫn kích hoạt. Bạn hãy nhấp vào đường dẫn đó để kích hoạt tài khoản của bạn."
+  confirmed: "Xin chúc mừng <strong>%username%</strong>, tài khoản của bạn đã được kích hoạt"
+  email: 
+    get_started: "Bắt đầu"
+    hello_title: "Xin chào %firstName%"
+    message: |-
+        %primaryContactName% đã cấp quyền cho bạn truy cập vào iCare Benefits’ B2B portal, đại diện cho Doanh nghiệp %companyName%.
+        B2B portal sẽ hỗ trợ bạn và Doanh nghiệp tương tác với iCare Benefits thuận tiện, nhanh chóng. Thông qua B2B portal, Doanh nghiệp có thể nắm thông tin của nhân viên tham gia chương trình một cách rõ ràng, minh bạch. iCare Benefits rất mong nhận được sự hợp tác nhiệt tình của bạn cũng như của Doanh nghiệp để chương trình phúc lợi iCare Benefit ngày càng mang lại nhiều lợi ích thiết thực cho tất cả nhân viên của Doanh nghiệp.
+        Vui lòng nhấp vào link để tạo password và đăng nhập vào tài khoản của bạn. Tên đăng nhập của bạn là %email%.
+    signature: "Trân trọng,<br/>iCare Benefits"
+    subject: "Chấp nhận lời mời truy cập của iCare Benefits"
+  enter_account_details: "Nhập thông tin chi tiết tài khoản của bạn"
+  enter_personal_details: "Nhập thông tin cá nhân của bạn vào các mục bên dưới"
+  flash: 
+    user_created: "Đã tạo thêm Nhân viên phụ trách mới thành công!"
+  go_to_dashboard: "Chuyển đến mục Tổng quan"
+  register_success: ~
+  signup: "Đăng ký"
+  submit: "Người đăng ký"
+  tnc_text: "Tôi đồng ý với Điều khoản dịch vụ <a href=\"javascript:;\"></a> & <a href=\"javascript:;\">Chính sách bảo mật </a>"
+resetting: 
+  back: "Quay lại"
+  check_email: "Một emai đã gửi đến địa chỉ %email%. Nội dung email có một đường dẫn, bạn hãy nhấp vào đường dẫn để cài đặt lại password."
+  email: 
+    message: |-
+        Xin chào %username%!
+        
+        Để cài đặt lại password, vui lòng truy cập %confirmationUrl%
+        
+        Trân trọng,
+        iCare Benefits
+    subject: "Cài đặt lại password"
+  flash: 
+    success: "Password đã được cài đặt lại thành công"
+  forgot_password: "Quên password?"
+  password_already_requested: "Người dùng này đã yêu cầu gửi password trong vòng 24h qua."
+  request: 
+    email: Email
+    invalid_username: "Không tìm thấy tên đăng nhập hoặc địa chỉ email \"%username%\"."
+    submit: "Cài đặt lại password"
+    username: "Tên đăng nhập"
+  reset: 
+    submit: "Đổi password"
+security: 
+  login: 
+    create_account: "Tạo tài khoản"
+    enter_username_password: "Nhập tên đăng nhập và password."
+    forgot_password: "Quên password?"
+    password: Password
+    please_login: "Vui lòng đăng nhập"
+    remember_me: "Ghi nhớ tài khoản của tôi"
+    set_password: "Cài đặt password"
+    submit: "Đăng nhập"
+    username: "Tên đăng nhập"
+    username_email: Email
+    welcome: "Xin chào!"
+
+unsubscribe:
+  authentication:
+    invalid: "Không tìm thấy tài khoản người dùng!"
+    success: "Bạn đã hủy đăng ký nhận email thành công."
+
+resubscribe:
+  authentication:
+    invalid: "Không tìm thấy tài khoản người dùng!"
+    success: "Bạn đã đăng ký nhận email thành công."

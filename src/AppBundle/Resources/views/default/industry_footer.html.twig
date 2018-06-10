@@ -1,0 +1,13 @@
+<div class="col-md-3">
+    <h4>{{ "layout.service"|trans }}</h4>
+    <ul>
+        {% for key,val in industries %}
+            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>{{ val.name }}</a></li>
+        {% set key = key + 1 %}
+        {% if key%5 == 0 %}
+    </ul>
+    <ul>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

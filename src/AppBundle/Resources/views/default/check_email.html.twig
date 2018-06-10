@@ -1,0 +1,28 @@
+{% extends "@App/base.html.twig" %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">Thank You! Your Account is now Activated.</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">HOME</a></li>
+                <li><a href="{{ path('app_registration_register') }}">SIGN UP</a></li>
+                <li class="active">SUCCESS</li>
+            </ol>
+        </div>
+    </div>
+    <!--page_title Section End-->
+
+    <!--page content Section Satrt-->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 about_l"> <img src="/bundles/app/images/about/desk.png"  alt="desk" /> </div>
+                <div class="col-md-6 col-sm-6">
+                    <p class="form-subtitle text-center">{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

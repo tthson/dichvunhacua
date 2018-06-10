@@ -1,0 +1,114 @@
+{% extends "@App/base.html.twig" %}
+
+{% block body %}
+    <div id="page_title">
+        <div class="container text-center">
+            <div class="panel-heading">Home Service Provider</div>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li class="active">Project Management - {{ project.category.name }} - Planning at {{ project.createdAt|date("d/m/Y") }}</li>
+            </ol>
+        </div>
+    </div>
+    <section id="blog-area" class="blog-with-sidebar-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <div class="blog-post">
+                        <!--Start single blog post-->
+                        {% for lead in leads %}
+                            {% set business = lead.business %}
+                        <div class="single-blog-post">
+                            <div class="img-holder">
+                                <div class="date_more row">
+                                    <!--div class="overlay-style-two"> 9<br />
+                                        jan </div-->
+                                    <div class="col-md-3">
+                                        {% if business.logo is not empty %}
+                                            <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}" width="200"/>
+                                        {% else %}
+                                            <div class="samples-logo">{{ business.name|first|upper }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="text-holder">
+                                            <h3 class="blog-title"><a href="{{ path('home-service-provider_edit', { 'id': business.id }) }}">{{ business.name }}</a></h3>
+                                            <div class="meta-info clearfix">
+                                                <ul class="post-info">
+                                                    <li><i class="fa fa-map-marker" aria-hidden="true"></i><a href="{{ path('home-service-provider_matching_by_location',{'locationSlug':business.city.slug,'locationId':business.city.id}) }}">{{ business.city.name }}</a></li>
+                                                    <li><i class="fa fa-tags" aria-hidden="true"></i>
+                                                        {% for category in business.categories %}
+                                                            <a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':category.slug,'categoryParentId':category.parentId,'categoryId':category.id}) }}">{{ category.name }}</a>{% if not loop.last %},{% endif %}
+                                                        {% endfor %}
+                                                    </li>
+                                                    <li><i class="fa fa-comment-o" aria-hidden="true"></i> <a href="#">5 Comments</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="text">
+                                            <p style="margin: 10px 0px 0px 0px">{{ business.about | striptags | truncate(300, true, '...') | raw }}</p>
+                                            {% if lead.proposal is not empty %}
+                                            {% set proposal = lead.proposal %}
+                                            <hr />
+                                            <h4>Proposal Information</h4>
+                                            <div style="padding-left: 0px" class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control" readonly="readonly" value="{{ proposal.estimatedTime }} days" type="text" />
+                                            </div>
+                                            <div style="padding-left: 0px" class="form-group col-md-3 col-sm-3 col-xs-12 ">
+                                                <input class="form-control" readonly="readonly" value="{{ proposal.estimatedCost }} VND" type="text" />
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <p style="margin: 10px 0px 5px 0px">Description: {{ proposal.description | striptags | raw }}</p>
+                                            <div class="clearfix"></div>
+                                            <br/>
+                                            <a class="readmore" href="{{ path('home-service-provider_edit', { 'id': business.id }) }}">Contact Me</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <nav aria-label="Page navigation" class="text-center">
+                            {{ knp_pagination_render(leads) }}
+                        </nav>
+                    </div>
+                </div>
+                <!--Start sidebar Wrapper-->
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="sidebar-wrapper">
+                        <div class="single-sidebar">
+                            <form class="search-form" action="#">
+                                <input placeholder="Search..." type="text">
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
+                        <div class="booking_summary">
+                            <h1>Project Summary</h1>
+                            <ul>
+                                <li><i class="fa fa-tags" aria-hidden="true"></i>{{ project.category.name }}</li>
+                                <li><i class="fa fa-home" aria-hidden="true"></i>{{ project.projectLocationType.name }}</li>
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ project.projectStatus.name }}</li>
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ project.projectPeriod.name }}</li>
+                                <li><i class="fa fa-commenting-o" aria-hidden="true"></i>{{ project.detail | striptags | raw }}</li>
+                            </ul>
+                        </div>
+                        <div class="single-sidebar">
+                            <div class="sec-title">
+                                <h3>Service Category</h3>
+                            </div>
+                            <ul class="categories clearfix">
+                                {% for key,val in industries %}
+                                    <li><a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':val.slug,'categoryParentId':val.parentId,'categoryId':val.id}) }}">{{ val.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--End Sidebar Wrapper-->
+            </div>
+        </div>
+    </section>
+{% endblock %}
