@@ -3415,10 +3415,39 @@ hr {
 .search-widget-container .search-widget .btn-search-all{height:44px;font-size:17px;line-height:17px;font-weight:500;border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;border-color:#fff}
 .home .search-widget-container .search-widget__upload{opacity:.7;filter:alpha(opacity=70)}
 .home .search-widget-container .search-widget__upload label{font-weight:400}
-@media (max-width:767px){#find-pros-form{height:300px}
+@media (max-width:767px){
 	.search-widget-container{height:100%}
 	.search-widget-container .search-widget{height:100%;position:relative;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;top:50%}
 	.search-widget-container .search-widget h1{text-align:center;margin-top:30px;margin-bottom:15px}
+	#service_provider {
+		padding-bottom: 10px!important;
+	}
+	#service_provider .counter_box {
+		padding: 0px!important;
+		margin: 0px 0 20px!important;
+	}
+	#service_provider .counter_number.counter {
+		font-size: 20px!important;
+	}
+	#service_provider .counter_name {
+		font-size: 11px!important;
+	}
+	#service_provider .counter_name img {
+		display: none!important;
+	}
+	span.stat-count {
+		display: block!important;
+	}
+	#howitwork {
+		padding: 0px;
+		margin: 0px!important;
+	}
+	#howitwork .row div {
+		float: left;
+	}
+	#howitwork h4 {
+		font-size: 13px;
+	}
 }
 label.error {
 	color: red;
