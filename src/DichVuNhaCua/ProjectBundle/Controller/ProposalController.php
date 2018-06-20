@@ -21,7 +21,7 @@ class ProposalController extends Controller
 {
     /**
      * @param Request $request
-     * @Route("proposal", name="home_service_project_index")
+     * @Route("proposal", name="home_service_proposal_index")
      * @Method("GET")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -31,9 +31,9 @@ class ProposalController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $dql   = "SELECT p FROM DichVuNhaCuaProjectBundle:Project p ";
+        $dql   = "SELECT p FROM DichVuNhaCuaProjectBundle:Proposal p ";
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $dql .= "WHERE p.userId= {$user->getId()}";
+            $dql .= "WHERE p.project.userId= {$user->getId()}";
         }
         $query = $em->createQuery($dql);
 

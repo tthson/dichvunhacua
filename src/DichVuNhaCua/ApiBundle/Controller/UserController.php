@@ -112,13 +112,17 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @Route("find-user-by-username/{username}", name="api_find_user_by_username")
+     * @Route("service-provider", name="api_get_user_info")
      * @Rest\View
      */
-    public function getUserAction($username)
+    public function getUserAction()
     {
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_BU_OWNER') === FALSE) {
+            throw new AccessDeniedException();
+        }
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        //$userManager = $this->container->get('fos_user.user_manager');
+        //$user = $userManager->findUserByUsername($username);
 
         if (!$user instanceof User) {
             throw new NotFoundHttpException('User not found');

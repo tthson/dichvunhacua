@@ -83,7 +83,12 @@ class Proposal
      */
     private $updatedAt;
 
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="latest_sent_at", type="datetime", nullable=true)
+     */
+    private $latestSentAt;
 
     /**
      * Get id
@@ -213,6 +218,30 @@ class Proposal
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set latestSentAt
+     *
+     * @param \DateTime $latestSentAt
+     *
+     * @return Proposal
+     */
+    public function setLatestSentAt($latestSentAt)
+    {
+        $this->latestSentAt = $latestSentAt;
+
+        return $this;
+    }
+
+    /**
+     * Get latestSentAt
+     *
+     * @return \DateTime
+     */
+    public function getLatestSentAt()
+    {
+        return $this->latestSentAt;
     }
 
     /**

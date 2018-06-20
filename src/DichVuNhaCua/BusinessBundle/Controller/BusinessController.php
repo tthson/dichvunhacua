@@ -389,21 +389,7 @@ class BusinessController extends Controller
         $projectId = $request->query->get('id');
         $page = $request->query->getInt('page', 1);
         $pageSize = 7;
-        $project = $this->getDoctrine()->getRepository("DichVuNhaCuaProjectBundle:Project")->find($projectId);
-        $condition = array(
-            'projectId' => $projectId,
-            "keyword" => $project->getName(),
-            "industryId" =>$project->getCategoryId(),
-            "cityId" => $project->getCityId()
-        );
-        $orders = ['sortBy' => '', 'sortOrder' => ''];
-
-        $queryBusinesses = $this->get('dich_vu_nha_cua_business.handler')->match(
-            $condition,
-            $orders,
-            $page,
-            $pageSize
-        );
+        $queryBusinesses = $this->get('dich_vu_nha_cua_business.handler')->getMatchedBusiness($projectId);
         $businessPaginate  = $this->get('knp_paginator');
         $pagination = $businessPaginate->paginate(
             $queryBusinesses,

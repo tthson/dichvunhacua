@@ -10,10 +10,13 @@ namespace AppBundle\Command\Cron;
 
 use DichVuNhaCua\ProjectBundle\Entity\Project;
 use DichVuNhaCua\ProjectBundle\Entity\Proposal;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\DBAL\Types\Type;
+use DoctrineExtensions\Query\Mysql\Date;
 
 /**
  * Class ApplyMaternityLeaveCommand
@@ -25,15 +28,21 @@ class SendProposalsToConsumerCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('i-care:employee-maternity-leave:apply')
-            ->setDescription('ICare set in-active for employee')
+            ->setName('dichvunhacua:send-proposal-to-consumer:send')
+            ->setDescription('DichVuNhaCua send all proposal to consumer')
             ->setDefinition(
                 array(
                     new InputOption(
-                        '--before_day_number',
+                        '--project_id',
+                        '-p',
+                        InputOption::VALUE_OPTIONAL,
+                        'project id'
+                    ),
+                    new InputOption(
+                        '--proposal_id',
                         null,
                         InputOption::VALUE_OPTIONAL,
-                        'number of days before the maternity-leave starting'
+                        'proposal id'
                     ),
                 )
             );
@@ -47,87 +56,44 @@ class SendProposalsToConsumerCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /* @var $doctrine EntityManagerInterface */
         $doctrine = $this->getContainer()->get('doctrine')->getManager();
         $qb = $doctrine->createQueryBuilder();
         $today = (new \DateTime())->format("Y-m-d");
-        $getMaternityLeaveQuery = $qb->select('ic')
-            ->from('ICareEmployeeBundle:ICareMember', 'ic')
-            ->where(':today BETWEEN DATE(ic.maternityLeaveStart) AND DATE(ic.maternityLeaveEnd)')
-            ->setParameter('today', $today)
-            ->andWhere("ic.inactiveReasons NOT LIKE '%maternity%'")
-            ->getQuery();
-        $iCareMembers = $getMaternityLeaveQuery->getResult();
-        if (!empty($iCareMembers)) {
+        $qb->select('p')->from('DichVuNhaCuaProjectBundle:Project', 'p');
+        $qb->join("DichVuNhaCuaProjectBundle:Proposal", 'pro', 'WITH',"p.id = pro.projectId");
+        $projects = $qb->where('DATE(pro.latestSentAt) < DATE(:today)')
+            ->setParameter('today', $today,Type::STRING)
+            ->orWhere($qb->expr()->isNull('pro.latestSentAt'))
+            ->getQuery()->getResult();
+        if (!empty($projects)) {
             /**
-             * @var $iCareMember ICareMember
+             * @var $project Project
              */
-            $coreICareMemberManager = $this->getContainer()->get('i_care_core.icare_member_manager');
-            foreach ($iCareMembers as $iCareMember) {
-                $billingClient = $this->getContainer()->get('i_care_b2b_em_billing.api_client');
-                $billingClient->rescheduleLoan(
-                    $iCareMember->getId(),
-                    $iCareMember->getFullName(),
-                    $iCareMember->getOrganizationId(),
-                    $iCareMember->getCustomerId(),
-                    $iCareMember->getBusinessUnitId(),
-                    $iCareMember->getMaternityLeaveStart()->format("Y-m-d"),
-                    $iCareMember->getMaternityLeaveEnd()->format("Y-m-d")
-                );
-                $iCareMember = $coreICareMemberManager->getICareMember(
-                    $iCareMember->getId()
-                );
-                $isChange = false;
-                if ($iCareMember->getIsActive() == 1) {
-                    $iCareMember->setIsActive(0);
-                    $isChange = true;
-                }
-                $inactiveReasons = $iCareMember->getInactiveReasons();
-                if (!in_array("maternity", $inactiveReasons)) {
-                    $inactiveReasons[] = "maternity";
-                    $iCareMember->setInactiveReasons($inactiveReasons);
-                    $isChange = true;
-                }
-                if ($isChange) {
-                    $coreICareMemberManager->updateICareMember($iCareMember);
-                }
-            }
-        }
-
-        $qb = $doctrine->createQueryBuilder();
-        $today = (new \DateTime())->format("Y-m-d");
-        $getMaternityLeaveQuery = $qb->select('ic')
-            ->from('ICareEmployeeBundle:ICareMember', 'ic')
-            ->where('DATE(ic.maternityLeaveEnd) < :today')
-            ->andWhere("ic.inactiveReasons LIKE '%maternity%'")
-            ->setParameter('today', $today)
-            ->getQuery();
-        $iCareMembers = $getMaternityLeaveQuery->getResult();
-        if (!empty($iCareMembers)) {
-            /**
-             * @var $iCareMember ICareMember
-             */
-            $coreICareMemberManager = $this->getContainer()->get('i_care_core.icare_member_manager');
-            foreach ($iCareMembers as $iCareMember) {
-                $iCareMember = $coreICareMemberManager->getICareMember(
-                    $iCareMember->getId()
-                );
-                $inactiveReasons = $iCareMember->getInactiveReasons();
-                $newInactiveReasons = [];
-                if (!empty($inactiveReasons)) {
-                    for ($i = 0; $i < count($inactiveReasons); $i++) {
-                        if ('maternity' == $inactiveReasons[$i]) {
-                            continue;
-                        }
-                        $newInactiveReasons[] = $inactiveReasons[$i];
-                    }
-
-                    if (count($newInactiveReasons) < count($inactiveReasons)) {
-                        $iCareMember->setInactiveReasons($newInactiveReasons);
-                        if (empty($newInactiveReasons)) {
-                            $iCareMember->setIsActive(1);
-                        }
-                        $coreICareMemberManager->updateICareMember($iCareMember);
-                    }
+            foreach ($projects as $project) {
+                $proposals = $doctrine->getRepository("DichVuNhaCuaProjectBundle:Proposal")->getProposalByProjectId($project->getId());
+                $message = (new \Swift_Message("Chúng tôi vừa tìm thấy ".count($proposals)." đề nghị mới, phù hợp với yêu cầu {$project->getCategory()->getName()} #{$project->getId()} của bạn"))
+                    ->setFrom(array("{$this->getContainer()->getParameter('mailer_user')}" => 'Dich Vu Nha Cua Support'))
+                    ->setTo($project->getCreatedBy()->getUsername())
+                    //->setTo("ttson284@gmail.com")
+                    ->setBody(
+                        $this->getContainer()->get('templating')->render(
+                            '@App/emails/send_proposal.html.twig',
+                            array(
+                                'project' => $project,
+                                'proposals' => $proposals,
+                                'user' => $project->getCreatedBy(),
+                            )
+                        ),
+                        'text/html'
+                    );
+                $this->getContainer()->get('mailer')->send($message);
+                /**
+                 * @var $proposal Proposal
+                 */
+                foreach ($proposals as $proposal) {
+                    $proposal->setLatestSentAt(new \DateTime());
+                    $doctrine->persist($proposal);
                 }
             }
         }

@@ -2,6 +2,8 @@
 
 namespace DichVuNhaCua\ProjectBundle\Entity\Repository;
 
+use Doctrine\DBAL\Types\Type;
+
 /**
  * ProposalRepository
  *
@@ -10,4 +12,19 @@ namespace DichVuNhaCua\ProjectBundle\Entity\Repository;
  */
 class ProposalRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $projecId
+     *
+     * @return \Doctrine\ORM\Query
+     */
+    public function getProposalByProjectId(int $projecId)
+    {
+        $queryBuilder = $this->getEntityManager()
+            ->createQueryBuilder()->from('DichVuNhaCuaProjectBundle:Proposal', 'p');
+
+        $queryBuilder->where('p.project = :projectId');
+        $queryBuilder->setParameter('projectId', $projecId, Type::INTEGER);
+
+        return $queryBuilder->select('p')->getQuery()->getResult();
+    }
 }

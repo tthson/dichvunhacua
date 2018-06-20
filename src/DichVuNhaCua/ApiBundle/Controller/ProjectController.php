@@ -3,6 +3,8 @@
 namespace DichVuNhaCua\ApiBundle\Controller;
 
 use AppBundle\Entity\User;
+use DichVuNhaCua\ProjectBundle\Entity\Proposal;
+use DichVuNhaCua\ProjectBundle\Form\ProposalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,35 +21,39 @@ use Symfony\Component\HttpFoundation\Response;
 class ProjectController extends FOSRestController
 {
     /**
-     * @Route("leads", name="api_get_matching_leads")
-     * @Rest\View
+     * @Route("create-proposal", name="api_create_proposal")
      */
-    public function getLeadsAction(Request $request)
+    public function createProposalAction(Request $request)
     {
         //$userManager = $this->container->get('fos_user.user_manager');
         if ($this->get('security.authorization_checker')->isGranted('ROLE_BU_OWNER') === FALSE) {
             throw new AccessDeniedException();
         }
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if (!$user instanceof User) {
-            throw new NotFoundHttpException('User not found');
+        $data = json_decode($request->getContent(), true);
+        $proposal = $this->getDoctrine()->getRepository("DichVuNhaCuaProjectBundle:Proposal")->findOneBy(array("business"=>$data['business'],"project"=>$data['project']));
+        if (empty($proposal)) {
+            $proposal = new Proposal();
         }
-        $businessId = $request->query->getInt('business_id', 0);
+        $form = $this->createForm(ProposalType::class, $proposal, array('csrf_protection' => false));
+        $form->submit($data);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $proposal = $form->getData();
+                $em->persist($proposal);
+                $em->flush();
+                $projectBusiness = $this->getDoctrine()->getRepository("DichVuNhaCuaProjectBundle:ProjectBusiness")->findOneBy(array("project"=>$proposal->getProject(),"business"=>$proposal->getBusiness()));
+                $projectBusiness->setProposal($proposal);
+                $em->persist($projectBusiness);
+                $em->flush();
+                $view = $this->view($proposal, Response::HTTP_CREATED);
 
-        $matchingProject = $this->getDoctrine()->getRepository("DichVuNhaCuaProjectBundle:ProjectBusiness")->findBy(array('business'=>$businessId));
-
-        $view = $this->view($matchingProject, Response::HTTP_OK);
+                return $this->handleView($view);
+            }
+        }
+        $view = $this->view($form, Response::HTTP_BAD_REQUEST);
 
         return $this->handleView($view);
-
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        dump($matchingProject);exit;
-
-        $serializer = new Serializer($normalizers, $encoders);
-        $jsonContent = $serializer->serialize($matchingProject, 'json');
-
-        return json_decode($jsonContent);
     }
     /**
      * Data serializing via JMS serializer.

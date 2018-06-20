@@ -134,13 +134,15 @@
                 </thead>
 
                 <tbody>
-                {% for business in businesses %}
+                {% for projectBusiness in businesses %}
+                    {% set business = projectBusiness.business %}
+                    {% set proposal = projectBusiness.proposal %}
                     <tr id="proposal-{{ project.id }}-{{ business.id }}" data-project-id="{{ project.id }}"
                         data-business-id="{{ business.id }}"
-                        data-proposal-id="{{ business.proposalId }}"
-                        data-estimated-time="{{ business.estimatedTime }}"
-                        data-estimated-cost="{{ business.estimatedCost }}"
-                        data-description="{{ business.description }}">
+                        data-proposal-id="{{ proposal is not empty? proposal.id: '' }}"
+                        data-estimated-time="{{ proposal is not empty? proposal.estimatedTime: '' }}"
+                        data-estimated-cost="{{ proposal is not empty? proposal.estimatedCost: '' }}"
+                        data-description="{{ proposal is not empty? proposal.description: '' }}">
                         <td data-label="ID" class="sorted integer "> {{ business.id }} </td>
                         <td data-label="Name" class=" string ">{{ business.name }}</td>
                         <td data-label="Address" class=" string ">{{ business.address }}</td>
@@ -148,7 +150,7 @@
                         <td data-label="Logo" class=" image ">
                             <a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-4ebdfc0deec0513e5c6a1d98a6f2552e" data-featherlight-close-on-click="anywhere">
                                 {% if business.logo is not empty %}
-                                    <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}" width="200"/>
+                                    <img src="{{ asset('uploads/images/' ~ business.logo) }}" width="200"/>
                                 {% else %}
                                     <div class="samples-logo">{{ business.name|first|upper }}</div>
                                 {% endif %}
@@ -161,8 +163,8 @@
                             </div>
                         </td>
                         <td data-label="Actions" class="actions">
-                            <a style="{% if business.proposalId is not empty %}display:none{% endif %}" class="text-primary action-create-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-create-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Create Proposal</a>
-                            <a style="{% if business.proposalId is empty %}display:none{% endif %}" class="text-primary action-edit-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-edit-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Edit Proposal</a>
+                            <a style="{% if proposal is not empty %}display:none{% endif %}" class="text-primary action-create-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-create-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Create Proposal</a>
+                            <a style="{% if proposal is empty %}display:none{% endif %}" class="text-primary action-edit-proposal action-button-{{ project.id }}-{{ business.id }}" id="action-edit-{{ project.id }}-{{ business.id }}" title="" href="#" target="_self">Edit Proposal</a>
                         </td>
                     </tr>
                 {% endfor %}

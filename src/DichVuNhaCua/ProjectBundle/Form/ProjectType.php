@@ -19,12 +19,10 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userId')
             ->add('name')
-            ->add('categoryId')
+            ->add('category')
             ->add('address')
             ->add('city')
-            ->add('zip')
             ->add('phone')
             ->add('email')
             ->add('firstName')
@@ -34,8 +32,7 @@ class ProjectType extends AbstractType
             ->add('projectPeriod')
             ->add('projectLocationType')
             //->add('state')
-            ->add('detail', TextareaType::class, array(
-                'attr' => array('class' => 'tinymce')))
+            ->add('detail')
         ;
     }
     

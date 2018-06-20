@@ -87,7 +87,6 @@ class ProjectController extends Controller
             //dump($dataToSubmit);exit;
             $form->submit($dataToSubmit);
             if ($form->isSubmitted()) {
-                $project->setUserId($user->getId());
                 $project->setCreatedBy($user);
                 $project->setCategory($dataToSubmit['category']);
                 $project->setProjectStatus($dataToSubmit['projectStatus']);

@@ -136,7 +136,7 @@ class BusinessHandler
         $queryBuilder->select('b.id, b.logo, b.status, b.name, b.about, b.cityId, b.address, b.phone, p.id as proposalId, p.estimatedTime, p.estimatedCost, p.description')
             ->from('DichVuNhaCuaBusinessBundle:Business', 'b');
         $queryBuilder->leftJoin('DichVuNhaCuaProjectBundle:Proposal', 'p', 'WITH',"b.id = p.businessId AND p.projectId = {$condition['projectId']}");
-        $queryBuilder->leftJoin('DichVuNhaCuaBusinessBundle:BusinessCategories', 'i', 'WITH', "b.id = i.businessId AND i.categoryId = {$industryId}");
+        $queryBuilder->join('DichVuNhaCuaBusinessBundle:BusinessCategories', 'i', 'WITH', "b.id = i.businessId AND i.categoryId = {$industryId}");
 
         /*if (!empty($keyword)) {
             $queryBuilder->andWhere('b.name LIKE :keyword OR b.certification LIKE :keyword OR b.phone LIKE :keyword OR b.email LIKE :keyword OR b.about LIKE :keyword')
@@ -154,6 +154,25 @@ class BusinessHandler
 
         return $queryBuilder->getQuery();
     }
+
+    /**
+     * @param int $projectId
+     *
+     * @return \Doctrine\ORM\Query
+     */
+    public function getMatchedBusiness($projectId)
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('pb')
+            ->from('DichVuNhaCuaProjectBundle:ProjectBusiness', 'pb');
+        $queryBuilder->andWhere('pb.project = :projectId')
+            ->setParameter('projectId', $projectId, Type::INTEGER);
+
+        $queryBuilder = $this->buildOrderQuery($queryBuilder, array());
+
+        return $queryBuilder->getQuery();
+    }
+
 
     /**
      * @param QueryBuilder $queryBuilder

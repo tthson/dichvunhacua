@@ -24,7 +24,7 @@
                                         jan </div-->
                                     <div class="col-md-3">
                                         {% if business.logo is not empty %}
-                                            <img src="{{ asset('uploads/business_logo/' ~ business.logo) }}" width="200"/>
+                                            <img src="{{ asset('uploads/images/' ~ business.logo) }}" width="200"/>
                                         {% else %}
                                             <div class="samples-logo">{{ business.name|first|upper }}</div>
                                         {% endif %}

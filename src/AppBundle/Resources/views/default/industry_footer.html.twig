@@ -2,7 +2,7 @@
     <h4>{{ "layout.service"|trans }}</h4>
     <ul>
         {% for key,val in industries %}
-            <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>{{ val.name }}</a></li>
+            <li><a href="{{ path('home-service-provider_matching_by_category',{'categorySlug':val.slug,'categoryParentId':val.parentId,'categoryId':val.id}) }}"><i class="fa fa-caret-right" aria-hidden="true"></i>{{ val.name }}</a></li>
         {% set key = key + 1 %}
         {% if key%5 == 0 %}
     </ul>
